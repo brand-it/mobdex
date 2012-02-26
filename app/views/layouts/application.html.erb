@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MobDex</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="top_navi">
+		<div class="navi_left">
+			<%= link_to "Domains", domains_path %>
+		</div>
+		<div class="navi_right">
+		</div>
+
+	</div>
+	<div id="content">
+		<div id="flashNotifier">
+			<%= flash_notifier %>
+		</div>
+		<%= yield %>
+	</div>
+
+
+</body>
+</html>
