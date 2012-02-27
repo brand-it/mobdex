@@ -9,7 +9,7 @@
 <div id="information">
 	<% for domain in @domains %>
 		<div>
-			<%= domain.name %>
+			<%= link_to domain.name, edit_domain_path(domain) %>
 		</div>
 	<% end %>
 </div>

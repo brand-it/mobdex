@@ -21,7 +21,7 @@ class Domain < ActiveRecord::Base
   
   # This will turn all search information into something that PG can match. More features to be added
   def self.scrub_search(search)
-    search.downcase
-    
+    search = search.downcase
+    "%#{search}%"
   end
 end
