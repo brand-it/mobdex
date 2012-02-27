@@ -9,6 +9,9 @@ class Domain < ActiveRecord::Base
     else
       domains = self.all
     end
+    if domains.blank?
+      domains = self.all
+    end
     return domains
     # Example
     # @domains = where("lower(name) LIKE ? OR lower(subname) LIKE ? OR lower(description) LIKE ?", search, search, search)

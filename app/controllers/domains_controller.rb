@@ -8,6 +8,20 @@ class DomainsController < ApplicationController
   def new
     @domain = Domain.new
   end
+  def edit
+    @domain = Domain.find(params[:id])
+  end
+  
+  def update
+    @domain = Domain.find(params[:id])
+
+    if @domain.update_attributes(params[:domain])
+      redirect_to domains_path
+    else
+      render :action => "edit"
+    end
+  end
+  
   def create
     @domain = Domain.new(params[:domain])
     

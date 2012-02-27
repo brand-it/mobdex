@@ -7,5 +7,9 @@
 	<% end %>
 </div>
 <div id="information">
-	<%= debug @domains %>
+	<% for domain in @domains %>
+		<div>
+			<%= domain.name %>
+		</div>
+	<% end %>
 </div>
