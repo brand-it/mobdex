@@ -3,7 +3,7 @@ class DomainsController < ApplicationController
     @domain = Domain.find(params[:id])
   end
   def index
-    @domains = Domain.all
+    @domains = Domain.search(params[:search])
   end
   def new
     @domain = Domain.new
@@ -12,7 +12,7 @@ class DomainsController < ApplicationController
     @domain = Domain.new(params[:domain])
     
     if @domain.save
-      flash[:success] = "Domain #{domain.name} has been created"
+      flash[:success] = "Domain #{@domain.name} has been created"
       redirect_to domains_path
     else
       flash[:error] = "Domain could not be created do to a error"
