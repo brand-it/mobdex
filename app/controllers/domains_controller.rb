@@ -1,5 +1,5 @@
 class DomainsController < ApplicationController
-
+  require "open-uri"
   def show
     @domain = Domain.find(params[:id])
   end
