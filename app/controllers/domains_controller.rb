@@ -47,6 +47,7 @@ class DomainsController < ApplicationController
   
   def update_all
     Domain.update_all_domains
+    flash[:notice] = "Information has been updated"
     redirect_to domains_path
   end
 end
