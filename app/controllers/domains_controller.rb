@@ -1,6 +1,10 @@
 class DomainsController < ApplicationController
+
+  
   def show
     @domain = Domain.find(params[:id])
+    
+    @doc = Nokogiri::Slop(open(@domain.url))
   end
   def index
     @domains = Domain.search(params[:search])
@@ -26,7 +30,7 @@ class DomainsController < ApplicationController
     @domain = Domain.new(params[:domain])
     
     if @domain.save
-      flash[:success] = "Domain #{@domain.name} has been created"
+      flash[:success] = "Domain #{@domain.url} has been created"
       redirect_to domains_path
     else
       flash[:error] = "Domain could not be created do to a error"

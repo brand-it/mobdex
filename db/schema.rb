@@ -11,12 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120226223403) do
+ActiveRecord::Schema.define(:version => 20120227234055) do
 
   create_table "domains", :force => true do |t|
-    t.string "name"
-    t.string "sub_name",  :default => "www"
-    t.string "top_level", :default => "com"
+    t.string "url"
+    t.string "title"
+    t.text   "description"
   end
 
   create_table "users", :force => true do |t|
