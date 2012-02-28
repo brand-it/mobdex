@@ -2,7 +2,6 @@ class DomainsController < ApplicationController
   def show
     @domain = Domain.find(params[:id])
     @domain.get_data
-    @domain.save
   end
   
   def index
