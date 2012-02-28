@@ -26,9 +26,13 @@ class Domain < ActiveRecord::Base
   
   def self.update_all_domains
     domains = self.all
+    success = true
     for domain in domains
-      domain.save
+      unless domain.save
+        success = false
+      end
     end
+    return success
   end
   
   private

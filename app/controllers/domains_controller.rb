@@ -46,8 +46,13 @@ class DomainsController < ApplicationController
   end
   
   def update_all
-    Domain.update_all_domains
-    flash[:notice] = "Information has been updated"
+    @status = Domain.update_all_domains
+    if @status
+      flash[:success] = "All information was successfully updated"
+    else
+      flash[:error] = "Some of the information could not be updated dew to a error. Please contact admin."
+    end
+    
     redirect_to domains_path
   end
 end
