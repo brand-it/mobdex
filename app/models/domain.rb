@@ -92,11 +92,19 @@ class Domain < ActiveRecord::Base
       description_array << "lower(description) LIKE '%#{split}%'"
       title_array << "lower(title) LIKE '%#{split}%'"
     end
+    # You can only join a array however we do not want to add data to a array that is nil
+    array_string = Array.new
     
-    url_string = "#{url_array.map{ |search| search }.join(" OR ").to_s}"
-    description_string = "#{description_array.map{ |search| search }.join(" OR ").to_s}"
-    title_string = "#{title_array.map{ |search| search }.join(" OR ").to_s}"
+    # Turn this into a method becoming to complicated to be here
+    url_string = url_array.map{ |search| search }.join(" OR ").to_s
+    array_string << url_string unless url_string.blank?
     
-    return url_string + " OR " + description_string + " OR " + title_string
+    description_string = description_array.map{ |search| search }.join(" OR ").to_s
+    array_string << description_string unless description_string.blank?
+    
+    title_string = title_array.map{ |search| search }.join(" OR ").to_s
+    array_string << title_string unless title_string.blank?
+    
+    return array_string.map{|build| build}.join(" OR ").to_s
   end
 end
