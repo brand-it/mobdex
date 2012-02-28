@@ -11,6 +11,7 @@
 		<div>
 			<%= link_to domain.url, edit_domain_path(domain) %>
 			<%= link_to "Show", domain_path(domain) %>
+			<%= link_to "Delete", domain_path(domain), :method => :delete %>
 		</div>
 	<% end %>
 </div>
