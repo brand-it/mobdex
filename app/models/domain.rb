@@ -1,6 +1,6 @@
 class Domain < ActiveRecord::Base
   validates_presence_of :url
-  after_validation :get_data
+  after_touch :get_data
   
   require 'open-uri'
   require 'nokogiri'
@@ -30,8 +30,11 @@ class Domain < ActiveRecord::Base
   end
   
   def get_data
-    doc = Nokogiri::HTML(open(url))
-    self.title = doc.title.to_s
-    self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
+    # The only reason we do this is because we could get a bad url in the system. We are going to try to fix this rather then just redirecting
+    begin
+      doc = Nokogiri::HTML(open(url))
+      self.title = doc.title.to_s
+      self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
+    end
   end
 end

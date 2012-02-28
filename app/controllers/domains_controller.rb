@@ -1,17 +1,17 @@
 class DomainsController < ApplicationController
 
-  
   def show
     @domain = Domain.find(params[:id])
-    
-    @doc = Nokogiri::Slop(open(@domain.url))
   end
+  
   def index
     @domains = Domain.search(params[:search])
   end
+  
   def new
     @domain = Domain.new
   end
+  
   def edit
     @domain = Domain.find(params[:id])
   end
@@ -36,8 +36,9 @@ class DomainsController < ApplicationController
       flash[:error] = "Domain could not be created do to a error"
       render :action => :new
     end
-    
   end
+  
   def destory
   end
+  
 end
