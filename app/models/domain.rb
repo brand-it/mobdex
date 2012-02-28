@@ -1,6 +1,6 @@
 class Domain < ActiveRecord::Base
   validates_presence_of :url
-  before_create :get_data
+  after_validation :get_data
   
   require 'open-uri'
   require 'nokogiri'
