@@ -4,7 +4,10 @@ class DomainsController < ApplicationController
   end
   
   def index
-    @domains = Domain.search(params[:search])
+    @domains, noresults = Domain.search(params[:search])
+    if noresults
+      flash[:notice] = "I could not find any results. Sorry"
+    end
   end
   
   def new

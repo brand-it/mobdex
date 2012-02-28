@@ -11,7 +11,7 @@ class Domain < ActiveRecord::Base
 
   
   def self.search(search)
-    
+    norsults = false
     unless search.nil?
       search = scrub_search(search)
       domains = self.find(:all,:conditions => search)
@@ -20,8 +20,9 @@ class Domain < ActiveRecord::Base
     end
     if domains.blank?
       domains = self.all
+      noresults = true
     end
-    return domains
+    return domains, noresults
   end
   
   def self.update_all_domains
