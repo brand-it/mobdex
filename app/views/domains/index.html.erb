@@ -13,7 +13,7 @@
 			<%= link_to "Edit", edit_domain_path(domain) %>
 			<%= link_to "Delete", domain_path(domain), :method => :delete %>
 			Data was updated <%= time_ago_in_words(domain.data_recived_on) unless domain.data_recived_on.nil? %>
-			<%= debug domain %>
+			<%#= debug domain %>
 		</div>
 	<% end %>
 </div>

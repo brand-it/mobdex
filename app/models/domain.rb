@@ -7,9 +7,12 @@ class Domain < ActiveRecord::Base
   require 'nokogiri'
   
   def self.search(search)
+    
     unless search.nil?
       search = scrub_search(search)
-      domains = self.where("lower(url) LIKE ? OR lower(description) LIKE ? OR lower(title) LIKE ?", search, search, search)
+      domains = self.find(:all,:conditions => search)
+      # domains = self.where("lower(url) LIKE ?", "%#{search}%")
+      # self.where(search)
     else
       domains = self.all
     end
@@ -68,7 +71,32 @@ class Domain < ActiveRecord::Base
   
   # This will turn all search information into something that PG can match. More features to be added
   def self.scrub_search(search)
-    search = search.downcase
-    "%#{search}%"
+    split_search = search.downcase.split(" ")
+    
+    url_array = Array.new
+    title_array = Array.new
+    description_array = Array.new
+    
+    # return "%" + split_search.map{ |search| search }.join("%").to_s + "%"
+    
+    for split in split_search
+      url_array << "lower(url) LIKE '%#{split}%'"
+      description_array << "lower(description) LIKE '%#{split}%'"
+      title_array << "lower(title) LIKE '%#{split}%'"
+    end
+    
+    url_string = "#{url_array.map{ |search| search }.join(" OR ").to_s}"
+    description_string = "#{description_array.map{ |search| search }.join(" OR ").to_s}"
+    title_string = "#{title_array.map{ |search| search }.join(" OR ").to_s}"
+    
+    return url_string + " OR " + description_string + " OR " + title_string
+    
+    
+    # SELECT "domains".* FROM "domains" WHERE (lower(url) LIKE '%signup%' OR lower(description) LIKE '%signup%' OR lower(title) LIKE '%signup%')
+    # "lower(url) LIKE ? OR lower(description) LIKE ? OR lower(title) LIKE ?"
+    # for search in split_search
+    #   string += "%#{search}"
+    # end
+    # string
   end
 end
