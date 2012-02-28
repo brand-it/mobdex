@@ -3,6 +3,7 @@ class Domain < ActiveRecord::Base
   require 'nokogiri'
   
   validates_presence_of :url
+  validates_presence_of :mobile_url
   after_validation :build_uri
   before_save :get_data
   before_update :get_data
