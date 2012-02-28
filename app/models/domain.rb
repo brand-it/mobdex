@@ -49,8 +49,9 @@ class Domain < ActiveRecord::Base
     
     
     string = uri_split.map{ |split| split }.join(".").to_s
-    
-    self.url = request_response + string
+    unless self.url.blank?
+      self.url = request_response + string
+    end
   end
   
   # This will turn all search information into something that PG can match. More features to be added
