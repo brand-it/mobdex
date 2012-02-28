@@ -9,7 +9,7 @@ class Domain < ActiveRecord::Base
   def self.search(search)
     unless search.nil?
       search = scrub_search(search)
-      domains = self.where("lower(url) LIKE ? OR lower(description) LIKE ? lower(title) LIKE ?", search, search, search)
+      domains = self.where("lower(url) LIKE ? OR lower(description) LIKE ? OR lower(title) LIKE ?", search, search, search)
     else
       domains = self.all
     end
