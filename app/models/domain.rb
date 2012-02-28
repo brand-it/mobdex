@@ -22,6 +22,16 @@ class Domain < ActiveRecord::Base
     # @domains = where("lower(name) LIKE ? OR lower(subname) LIKE ? OR lower(description) LIKE ?", search, search, search)
   end
   
+  def get_data
+    # The only reason we do this is because we could get a bad url in the system. We are going to try to fix this rather then just redirecting
+    begin
+      doc = Nokogiri::HTML(open(url))
+      self.title = doc.title.to_s
+      self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
+      self.data_recived_on = Time.now
+    end
+  end
+  
   private
   
   def build_uri
@@ -58,16 +68,5 @@ class Domain < ActiveRecord::Base
   def self.scrub_search(search)
     search = search.downcase
     "%#{search}%"
-  end
-  
-  def get_data
-    # The only reason we do this is because we could get a bad url in the system. We are going to try to fix this rather then just redirecting
-    begin
-      doc = Nokogiri::HTML(open(url))
-      self.title = doc.title.to_s
-      self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
-    rescue
-      
-    end
   end
 end

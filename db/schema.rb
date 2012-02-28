@@ -11,12 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120227234055) do
+ActiveRecord::Schema.define(:version => 20120228060741) do
 
   create_table "domains", :force => true do |t|
-    t.string "url"
-    t.string "title"
-    t.text   "description"
+    t.string   "url"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "data_recived_on"
+  end
+
+  create_table "site_domains", :force => true do |t|
+    t.string   "url"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "data_recived_on"
   end
 
   create_table "users", :force => true do |t|
