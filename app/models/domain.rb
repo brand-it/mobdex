@@ -29,6 +29,7 @@ class Domain < ActiveRecord::Base
       self.title = doc.title.to_s
       self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
       self.data_recived_on = Time.now
+    rescue
     end
   end
   
