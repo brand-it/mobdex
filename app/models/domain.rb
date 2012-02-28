@@ -1,18 +1,19 @@
 class Domain < ActiveRecord::Base
-  validates_presence_of :url
-  after_validation :build_uri
-  after_save :get_data
-  
   require 'open-uri'
   require 'nokogiri'
+  
+  validates_presence_of :url
+  after_validation :build_uri
+  before_save :get_data
+  before_update :get_data
+  
+
   
   def self.search(search)
     
     unless search.nil?
       search = scrub_search(search)
       domains = self.find(:all,:conditions => search)
-      # domains = self.where("lower(url) LIKE ?", "%#{search}%")
-      # self.where(search)
     else
       domains = self.all
     end
@@ -20,10 +21,16 @@ class Domain < ActiveRecord::Base
       domains = self.all
     end
     return domains
-    
-    # Example
-    # @domains = where("lower(name) LIKE ? OR lower(subname) LIKE ? OR lower(description) LIKE ?", search, search, search)
   end
+  
+  def self.update_all_domains
+    domains = self.all
+    for domain in domains
+      domain.save
+    end
+  end
+  
+  private
   
   def get_data
     # The only reason we do this is because we could get a bad url in the system. We are going to try to fix this rather then just redirecting
@@ -32,13 +39,10 @@ class Domain < ActiveRecord::Base
       self.title = doc.title.to_s
       self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
       self.data_recived_on = Time.now
-      self.save
     rescue
+    ensure
     end
   end
-  
-  private
-  
   def build_uri
     # Step one tells me that the uri does have a  http or a https to use
     one = self.url.slice(/(https|http)/)
@@ -77,8 +81,6 @@ class Domain < ActiveRecord::Base
     title_array = Array.new
     description_array = Array.new
     
-    # return "%" + split_search.map{ |search| search }.join("%").to_s + "%"
-    
     for split in split_search
       url_array << "lower(url) LIKE '%#{split}%'"
       description_array << "lower(description) LIKE '%#{split}%'"
@@ -90,13 +92,5 @@ class Domain < ActiveRecord::Base
     title_string = "#{title_array.map{ |search| search }.join(" OR ").to_s}"
     
     return url_string + " OR " + description_string + " OR " + title_string
-    
-    
-    # SELECT "domains".* FROM "domains" WHERE (lower(url) LIKE '%signup%' OR lower(description) LIKE '%signup%' OR lower(title) LIKE '%signup%')
-    # "lower(url) LIKE ? OR lower(description) LIKE ? OR lower(title) LIKE ?"
-    # for search in split_search
-    #   string += "%#{search}"
-    # end
-    # string
   end
 end

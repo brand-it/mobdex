@@ -1,5 +1,6 @@
 <div id="subNavi">
 	<%= link_to "New Domain", new_domain_path %>
+	<%= link_to "Update All", update_all_domains_path, :confirm => "If you click this it could take a lot of time to run. Are you sure."%>
 </div>
 <div id="search">
 	<%= form_tag domains_path, :method => :get do %>

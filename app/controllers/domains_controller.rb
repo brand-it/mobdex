@@ -1,7 +1,6 @@
 class DomainsController < ApplicationController
   def show
     @domain = Domain.find(params[:id])
-    @domain.get_data
   end
   
   def index
@@ -46,4 +45,8 @@ class DomainsController < ApplicationController
     redirect_to domains_path
   end
   
+  def update_all
+    Domain.update_all_domains
+    redirect_to domains_path
+  end
 end
