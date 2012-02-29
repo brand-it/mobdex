@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
     users.collect {|u| [ u.full_name, u.id ] }
   end
 
-  def self.create_user(params)
+  def self.new_user_safe_mode(params)
     user = self.new(params)
     user.access_level = 1
-    return user.save
+    return user
   end
   
   def update_user(current_user, params_user)

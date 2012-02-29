@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.create_user(params[:user])
-    if @user
+    @user = User.new_user_safe_mode(params[:user])
+    if @user.save
       ValidateEmails.send_validation(@user).deliver
       flash[:notice] = "Account registered and email has been sent to your account!"
       redirect_to root_path
