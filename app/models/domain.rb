@@ -2,14 +2,23 @@ class Domain < ActiveRecord::Base
   require 'open-uri'
   require 'nokogiri'
   
+  has_many :taggings, :dependent => :destroy
+  has_many :tags, :through => :taggings
+  
   validates_presence_of :url
   validates_presence_of :mobile_url
+  
   after_validation :build_uri
   before_save :get_data
   before_update :get_data
+  after_save :assign_tags
   
-
+  attr_writer :tag_names
   
+  def tag_names
+     @tag_names || tags.map(&:name).join(' ')
+  end
+   
   def self.search(search)
     norsults = false
     unless search.nil?
@@ -49,6 +58,15 @@ class Domain < ActiveRecord::Base
     ensure
     end
   end
+  
+  def assign_tags
+    if @tag_names
+      self.tags = @tag_names.split(/\s+/).map do |name|
+        Tag.find_or_create_by_name(name)
+      end
+    end
+  end
+  
   def build_uri
     # Step one tells me that the uri does have a  http or a https to use
     one = self.url.slice(/(https|http)/)
