@@ -8,6 +8,24 @@ Mobdex::Application.routes.draw do
     end
   end
 
+
+
+  resources :users do
+    collection do
+      get "request_activation"
+      post "resend_activation"
+    end
+  end
+  resources :user_sessions
+  
+  match "login" => "user_sessions#new", :as => "login"
+  match 'logout', :to => 'user_sessions#destroy', :as => "logout"
+  
+  # Activation did not work or something and you need it sent again.
+  
+  # Acctivation Account url
+  match "/activate/:perishable_token" => "users#activate", :as => "activate_user"
+  
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action

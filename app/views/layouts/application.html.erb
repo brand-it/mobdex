@@ -12,6 +12,17 @@
 			<%= link_to "Domains", domains_path %>
 		</div>
 		<div class="navi_right">
+			<% if logged_in? %>
+				<%= link_to current_user.full_name, logout_path, :confirm => "Are you sure you want to logout?"%> |
+				<%= access_level_to_words current_user.access_level %> |
+				<%= link_to "Edit", edit_user_path(current_user) %>
+				<% if admin? %>
+					| <%= link_to "Users List", users_path %>
+				<% end %>
+			<% else %>
+				<%= link_to "Login", login_path %> |
+				<%= link_to "New Account", new_user_path %>
+			<% end %>
 		</div>
 
 	</div>

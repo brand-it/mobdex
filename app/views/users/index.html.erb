@@ -1,0 +1,23 @@
+<div id="information">
+	<table>
+		<tr>
+			<th>Access Level</th>
+			<th>Current Ip</th>
+			<th>Full Name</th>
+			<th>Email</th>
+			<th>Active<th>
+			<th></th>
+		</tr>
+		<% for user in @users %>
+			<tr>
+				<td><%= access_level_to_words(user.access_level) %></td>
+				<td><%= user.current_login_ip %></td>
+				<td><%= user.full_name %></td>
+				<td><%= user.email %></td>
+				<td><%= user.active %></td>
+				<td><%= link_to "Edit", edit_user_path(user) %></td>
+				<td><%= link_to "Send Activation", resend_activation_users_path(:user => {:email => user.email}), :method => :post, :confirm => "Are you sure?" %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

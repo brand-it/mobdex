@@ -1,4 +1,6 @@
 class DomainsController < ApplicationController
+  before_filter :basic_authorized
+  
   def show
     @domain = Domain.find(params[:id])
   end

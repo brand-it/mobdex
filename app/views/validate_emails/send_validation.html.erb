@@ -1,0 +1,17 @@
+<div>
+	<div>
+		<%= @user.full_name%>, please confirm your Mobdex account to continue using our services.
+	</div>
+	<h3>Mobdex</h3>
+	<div>
+		<p>To get started, please <%= link_to "click here", activate_user_url(@user.perishable_token) %> to confirm your email address.</p>
+		<p>If the above link does not work, try copying and pasting the following address into your browser: <%= activate_user_url(@user.perishable_token) %></p>
+		<p>Thank you for using Mobdex! </p>
+		<p>
+			-- The Mobdex Team
+		</p>
+	<div/>
+	<div>
+		Copyright © 2012 Mobdex.net All rights reserved.
+	</div>
+</div>
