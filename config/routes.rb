@@ -7,6 +7,8 @@ Mobdex::Application.routes.draw do
       get "update_all"
     end
   end
+  
+  match "/domains/search/:search" => "domains#index", :as => "search_domains"
 
 
 

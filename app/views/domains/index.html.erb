@@ -8,6 +8,10 @@
 	<% end %>
 </div>
 <div id="information">
+	<% for tagging in @taggings %>
+		<%= link_to tagging.tag.name, search_domains_path(tagging.tag.name) %>
+	<% end %>
+
 	<% for domain in @domains %>
 		<div>
 			<h1 style="font-size: 15px;"><%= domain.title %></h1>
