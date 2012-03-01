@@ -10,7 +10,7 @@
 <div id="information">
 	<% for domain in @domains %>
 		<div>
-			<%= link_to domain.url, domain_path(domain) %>
+			<%= link_to domain.title, domain_path(domain) %>
 			<%= link_to "Edit", edit_domain_path(domain) %>
 			<%= link_to "Delete", domain_path(domain), :method => :delete %>
 			Data was updated <%= time_ago_in_words(domain.data_recived_on) unless domain.data_recived_on.nil? %>
