@@ -8,7 +8,7 @@ class Domain < ActiveRecord::Base
   validates_presence_of :url
   validates_presence_of :mobile_url
   
-  after_validation :build_uri
+  after_validation :clean_urls
   before_save :get_data
   before_update :get_data
   after_save :assign_tags
@@ -67,20 +67,26 @@ class Domain < ActiveRecord::Base
     end
   end
   
-  def build_uri
+  def clean_urls
+    self.url = build_url(self.url)
+    self.mobile_url = build_url(self.mobile_url)
+  end
+  
+  # This will turn any string that is passed into into a url
+  def build_url(url)
     # Step one tells me that the uri does have a  http or a https to use
-    one = self.url.slice(/(https|http)/)
+    one = url.slice(/(https|http)/)
     if one.nil?
       request_response = "http://"
-      uri_split = self.url.split(".")
+      uri_split = url.split(".")
     else
-      request_response = self.url.split("//")[0] + "//"
-      uri_split = self.url.split("//")[1].split(".")
+      request_response = url.split("//")[0] + "//"
+      uri_split = url.split("//")[1].split(".")
     end
     # Step two and three check for the .com and www at the begging. The count is to make sure that is it missing something and not just taking the place of a sub domain.
     if uri_split.count <= 2
-      two = self.url.slice(/(com|gov|org|net)/)
-      three = self.url.slice(/(www)/)
+      two = url.slice(/(com|gov|org|net)/)
+      three = url.slice(/(www)/)
       # don't add if the thing is there
       if three.nil?
         uri_split.unshift("www")
@@ -92,8 +98,8 @@ class Domain < ActiveRecord::Base
     
     
     string = uri_split.map{ |split| split }.join(".").to_s
-    unless self.url.blank?
-      self.url = request_response + string
+    unless url.blank?
+      url = request_response + string
     end
   end
   
