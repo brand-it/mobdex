@@ -23,7 +23,7 @@ class Domain < ActiveRecord::Base
     norsults = false
     unless search.nil?
       search = scrub_search(search)
-      domains = self.find(:all,:conditions => search)
+      domains = self.find(:all,:conditions => search, :include => :tags)
     else
       domains = self.all
     end
@@ -104,11 +104,13 @@ class Domain < ActiveRecord::Base
     url_array = Array.new
     title_array = Array.new
     description_array = Array.new
+    tag_array = Array.new
     
     for split in split_search
       url_array << "lower(url) LIKE '%#{split}%'"
       description_array << "lower(description) LIKE '%#{split}%'"
       title_array << "lower(title) LIKE '%#{split}%'"
+      tag_array << "lower(tags.name) LIKE '%#{split}%'"
     end
     # You can only join a array however we do not want to add data to a array that is nil
     array_string = Array.new
@@ -122,6 +124,9 @@ class Domain < ActiveRecord::Base
     
     title_string = title_array.map{ |search| search }.join(" OR ").to_s
     array_string << title_string unless title_string.blank?
+    
+    tag_string = tag_array.map{ |search| search }.join(" OR ").to_s
+    array_string << tag_string unless tag_string.blank?
     
     return array_string.map{|build| build}.join(" OR ").to_s
   end
