@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120229073108) do
+ActiveRecord::Schema.define(:version => 20120301080851) do
 
   create_table "domains", :force => true do |t|
-    t.string   "url"
+    t.text     "url",             :limit => 255
     t.string   "title"
     t.text     "description"
     t.datetime "data_recived_on"
-    t.string   "mobile_url"
+    t.text     "mobile_url",      :limit => 255
   end
 
   create_table "taggings", :force => true do |t|
