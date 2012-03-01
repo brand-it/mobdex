@@ -57,4 +57,13 @@ Mobdex::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  
+  # Gem will not find the correct view path
+  ExceptionNotifier::Notifier.prepend_view_path File.join(Rails.root, 'app/views')
+  
+  config.middleware.use ExceptionNotifier,
+    :email_prefix => "[Exception] ",
+    :sender_address => %{"Exception Notifier" <r3duxnet@gmail.com>},
+    :exception_recipients => %w{brandt.lareau@gmail.com}
 end

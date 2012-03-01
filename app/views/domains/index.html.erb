@@ -19,7 +19,6 @@
 			<%= link_to "Delete", domain_path(domain), :method => :delete %>
 			<%= link_to "Show", domain_path(domain) %>
 			Data was updated <%= time_ago_in_words(domain.data_recived_on) unless domain.data_recived_on.nil? %>
-			<%#= debug domain %>
 		</div>
 	<% end %>
 </div>
