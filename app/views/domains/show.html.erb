@@ -1,7 +1,8 @@
 <div id="information">
 	<h1><%= @domain.title %></h1>
 	<p><%= @domain.description %></p>
-	<div><%= @domain.url %></div>
+	<div><%= link_to @domain.url, @domain.url, :target => :blank %></div>
+	<div><%= link_to @domain.mobile_url, @domain.mobile_url, :target => :blank %></div>
 	<div>
 		<% for tag in @domain.tags %>
 			<p><%= tag.name %></p>
