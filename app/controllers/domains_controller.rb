@@ -1,5 +1,5 @@
 class DomainsController < ApplicationController
-  before_filter :basic_authorized
+  before_filter :admin_authorized, :only => [:new, :edit, :update, :create, :destroy, :update_all]
   
   def show
     @domain = Domain.find(params[:id])
