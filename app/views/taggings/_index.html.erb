@@ -1,5 +1,3 @@
 <% for tagging in @taggings %>
-	<% if tagging.domain %>
-		<div><%= link_to tagging.tag.name, tag_path(tagging.tag) %></div>
-	<% end %>
+	<div><%= link_to tagging.tag.name, tag_path(tagging.tag) %></div>
 <% end %>
