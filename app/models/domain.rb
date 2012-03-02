@@ -122,16 +122,16 @@ class Domain < ActiveRecord::Base
     array_string = Array.new
     
     # Turn this into a method becoming to complicated to be here
-    url_string = url_array.map{ |search| search }.join(" OR ").to_s
+    url_string = url_array.map{ |search| search }.join(" AND ").to_s
     array_string << url_string unless url_string.blank?
     
-    description_string = description_array.map{ |search| search }.join(" OR ").to_s
+    description_string = description_array.map{ |search| search }.join(" AND ").to_s
     array_string << description_string unless description_string.blank?
     
-    title_string = title_array.map{ |search| search }.join(" OR ").to_s
+    title_string = title_array.map{ |search| search }.join(" AND ").to_s
     array_string << title_string unless title_string.blank?
     
-    tag_string = tag_array.map{ |search| search }.join(" OR ").to_s
+    tag_string = tag_array.map{ |search| search }.join(" AND ").to_s
     array_string << tag_string unless tag_string.blank?
     
     return array_string.map{|build| build}.join(" OR ").to_s
