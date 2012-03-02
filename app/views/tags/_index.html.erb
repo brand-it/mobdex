@@ -1,0 +1,3 @@
+<% for tag in @tags %>
+	<div><%= link_to tag.name, tag_path(tag) %></div>
+<% end %>

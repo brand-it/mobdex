@@ -7,7 +7,7 @@ class DomainsController < ApplicationController
   
   def index
     @domains, noresults = Domain.search(params[:search])
-    @taggings = Tagging.all
+    @tags = Tag.all
     if noresults
       flash[:notice] = "I could not find any results. Sorry"
     else
