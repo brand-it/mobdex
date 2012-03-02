@@ -8,7 +8,7 @@ namespace :clean do
     taggings = Tagging.all
     for tagging in taggings
       if tagging.tag
-        tags = Tag.find(:all, :conditions => "lower(name) IS '#{tagging.tag.name.downcase}'")
+        tags = Tag.find(:all, :conditions => "lower(name) = '#{tagging.tag.name.downcase}'")
         for tag in tags
           if tag.id != tagging.tag_id
             if tag.delete
