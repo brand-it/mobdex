@@ -15,6 +15,7 @@
 	<% for domain in @domains %>
 		<div>
 			<h1 style="font-size: 15px;"><%= domain.title %></h1>
+			<%= image_tag domain.url + "/favicon.ico"%>
 			<%= link_to "Edit", edit_domain_path(domain) %>
 			<%= link_to "Delete", domain_path(domain), :method => :delete %>
 			<%= link_to "Show", domain_path(domain) %>
