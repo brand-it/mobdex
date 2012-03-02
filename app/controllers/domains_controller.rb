@@ -47,7 +47,6 @@ class DomainsController < ApplicationController
   end
   
   def destroy
-    
     @domain = Domain.find(params[:id])
     @domain.delete
     

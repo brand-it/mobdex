@@ -10,7 +10,7 @@ Mobdex::Application.routes.draw do
   
   match "/domains/search/:search" => "domains#index", :as => "search_domains"
 
-
+  resources :tags, :only => [:index, :show]
 
   resources :users do
     collection do

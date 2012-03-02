@@ -4,26 +4,13 @@
 		<%= link_to "Update All", update_all_domains_path, :confirm => "If you click this it could take a lot of time to run. Are you sure."%>
 	</div>
 <% end %>
-<div id="search">
-	<%= form_tag domains_path, :method => :get do %>
-		<div><%= search_field_tag :search, params[:search] %></div>
-	<% end %>
-</div>
+<%= render "search" %>
 <div id="information">
-	<% for tagging in @taggings %>
-		<%= link_to tagging.tag.name, search_domains_path(tagging.tag.name) %>
-	<% end %>
-
-	<% for domain in @domains %>
-		<div>
-			<h1 style="font-size: 15px;"><%= image_tag domain.url + "/favicon.ico", :class => :favicon %> <%= domain.title %> <%= link_to "Show", domain_path(domain) %></h1>
-			
-			
-			<% if admin? %>
-				<%= link_to "Edit", edit_domain_path(domain) %>
-				<%= link_to "Delete", domain_path(domain), :method => :delete %>
-				Data was updated <%= time_ago_in_words(domain.data_recived_on) unless domain.data_recived_on.nil? %>
-			<% end %>
-		</div>
-	<% end %>
+	<div class="tags">
+		<h1>Tags</h1>
+		<%= render "taggings/index" %>
+	</div>
+	<div class="domains">
+		<%= render "index" %>
+	</div>
 </div>

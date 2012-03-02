@@ -3,7 +3,7 @@ class Domain < ActiveRecord::Base
   require 'nokogiri'
   
   has_many :taggings, :dependent => :destroy
-  has_many :tags, :through => :taggings
+  has_many :tags, :through => :taggings, :dependent => :destroy
   
   validates_presence_of :url
   validates_presence_of :mobile_url

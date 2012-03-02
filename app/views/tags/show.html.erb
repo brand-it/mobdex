@@ -1,0 +1,11 @@
+<%= render "domains/search" %>
+<div id="information">
+	<div class="tags">
+		<h1>Tags</h1>
+		<%= render "taggings/index" %>
+	</div>
+	<div class="domain">
+		<%= render "domains/index", :@domains => @tag.domains %>
+	</div>
+	
+</div>
