@@ -1,10 +1,6 @@
 <div id="information">
-	<h1>Edit Domain <%= @domain.url %></h1>
+	<h1>Edit Domain </h1>
+   <frame src="<%= @domain.url %>" />
 
-	<div class="form">
-		<%= form_for(@domain) do |f| %>
-	  		<%= render "form", :form => f %>
-	  		<%= f.submit %>
-		<% end %>
-	</div>
+
 </div>
