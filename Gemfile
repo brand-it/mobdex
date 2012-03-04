@@ -24,6 +24,11 @@ end
 
 gem 'jquery-rails'
 
+
+platforms :mswin do
+  # I know you use windows so for all the gems you need for windows put them here
+end
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
