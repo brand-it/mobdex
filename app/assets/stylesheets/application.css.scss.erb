@@ -5,106 +5,102 @@
  *= require_self
  *= require_tree . 
 */
-
+// setup
 * {
 	margin: 0px;
 	padding: 0px;
 	font-family: Verdana;
 	font-size: 11px;
-}
-// Main Navigation for the site
-	#top_navi {
-		background-image: url(<%= asset_path "repeat_background.png" %>);
-		color: #FFF;
-		padding: 10px;
-		height: 20px;
-	}
 
-	#top_navi a {
-		padding-right: 5px;
-		padding-left: 5px;
-		color: #EDEDED;
-		text-decoration: none;
-	}
+	background-repeat:repeat-x;
 
-	#top_navi a:hover {
-		color: #FFF;
-		text-decoration: underline;
-	}
-	
-	#top_navi .navi_left {
-		float: left;
-	}
-	
-	#top_navi .navi_right {
-		float: right;
-		height: 20px;
-	}
-// End Main Navigation
-
-
-// Favicon
-.favicon {
-	width: 16px;
-	height: 16px;
 }
 
-// Search Stuff
+body {
+	background-image: url(<%= asset_path "bg.png"  %>);
+	height: 100%;
+	background-color: #ffffff;
+}
 
+
+#content {
+	width: 600px;
+	margin: auto;
+}
+
+
+// Domains Search 
 #search {
-	padding: 10px;
+	background-image: url(<%= asset_path "inner_background.jpg" %>);
+	border-style: none;
+	padding: 9px;
+	border-image: url(<%= asset_path "inner_right.jpg" %>);
+	float:left;
+	margin: 0px;
+	border-width: 0px;
+	outline: none;
+	width: 200px;
 }
 
-// End Search Stuff
+#border {
+	margin: auto;
+	overflow:auto;
+	background-image: url(<%= asset_path "search_box_background.jpg" %> );
+	width: 300px;
+	height: 52px;
+}
 
+#border form {
+	display: inline;
+}
 
-// Domains 
-.domains {
+#capLeft {
 	float: left;
 }
 
-.domainHeader {
-	font-size: 15px;
+#capRight {
+	float: left;
 }
-
-// Tags
-
-.tags {
+#searchInputWraper {
 	margin: 10px;
-	float: left;
 }
 
-// End Tags
-
-
-// Sub Navigation
-
-
-#subNavi {
-	padding: 10px;
-	background-color: gray;
+#searchButton {
+	background:url(<%= "search_btn.jpg" %>) no-repeat;
+    cursor:pointer;
+    width: 30px;
+    height: 31px;
+    border: none;
 }
 
-#subNavi a {
-	color: #EDEDED;
-	padding-right: 5px;
-	padding-left: 5px;
+// End Domains Search
+
+// Header
+
+#header {
+	color: white;
+	font-style: bold;
+	text-align:center;
 }
 
-#subNavi a:hover {
-	color: #FFF;
-	text-decoration: none;
+#header h1 {
+
+	font-size: 20px;
 }
 
-// End Sub navigation
-.content {
-	padding: 0px;
+// End Header
+
+
+// favicon
+
+.favicon {
+	width: 34px;
+	height: 34px;
 }
 
-#information {
-	padding: 20px;
-}
+// favicon end
 
+// Error on create a peace of rails
 #error_explantion h2{
 	color: red;
 	padding: 10px;
@@ -119,6 +115,8 @@
 	color: red;
 	display: inline;
 }
+
+// end error on create a peace of rails
 
 /*---------------- Flash ------------------------*/
 

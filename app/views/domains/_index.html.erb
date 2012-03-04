@@ -1,5 +1,5 @@
 <% for domain in @domains %>
-	<h1 class="domainHeader"><%= image_tag domain.url + "/favicon.ico", :class => :favicon %> <%= domain.title %> <%= link_to "Show", domain_path(domain) %></h1>
+	<h1 class="domainHeader"><%= image_tag domain.url + "/favicon.ico", :class => :favicon %> <%= domain.title %> </h1>
 
 	<% if admin? %>
 		<%= link_to "Edit", edit_domain_path(domain) %>
