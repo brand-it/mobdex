@@ -1,0 +1,11 @@
+<div class="domains">
+	<% for domain in @domains %>
+		<h1 class="domainHeader"><%= image_tag domain.url + "/favicon.ico", :class => :favicon %> <%= domain.title %> </h1>
+
+		<% if admin? %>
+			<%= link_to "Edit", edit_domain_path(domain) %>
+			<%= link_to "Delete", domain_path(domain), :method => :delete %>
+			Data was updated <%= time_ago_in_words(domain.data_recived_on) unless domain.data_recived_on.nil? %>
+		<% end %>
+	<% end %>
+</div>

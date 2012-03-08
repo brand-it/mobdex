@@ -1,0 +1,35 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: Verdana;
+
+	background-repeat:repeat-x;
+}
+
+body {
+	background-image: url(<%= asset_path "search_box_background.jpg" %>);
+	height: 100%;
+	font-size: 12px;
+}
+
+#domains { 
+}
+
+/*---------------- Flash ------------------------*/
+
+	#flashNotifier {
+		float: right;
+		width: 100%;
+		text-align: center;
+	}
+	#flashNotifier .notice-message {
+		color: #FF9200;
+	}
+	#flashNotifier .error-message{
+		color: red;
+	}
+	#flashNotifier .success-message {
+		color: green;
+	}
+
+/*---------------- End Flash --------------------*/
