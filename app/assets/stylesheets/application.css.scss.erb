@@ -10,14 +10,13 @@
 	padding: 0px;
 	font-family: Verdana;
 	font-size: 11px;
-	background-repeat:repeat-x;
-	background-image: url(<%= asset_path "bg.png" %>);
+
 
 }
 
 html body {
-
-	background-repeat: repeat-x; 
+	background-repeat:repeat-x;
+	background-image: url(<%= asset_path "bg.png" %>);
 	height: 100%;
 	background-color: #ffffff;
 }
@@ -34,7 +33,6 @@ html body {
 	background-image: url(<%= asset_path "inner_background.jpg" %>);
 	border-style: none;
 	padding: 9px;
-	border-image: url(<%= asset_path "inner_right.jpg" %>);
 	float:left;
 	margin: 0px;
 	border-width: 0px;
@@ -117,6 +115,45 @@ html body {
 }
 
 // end error on create a peace of rails
+
+
+
+// Domain index
+
+
+.domain {
+	background-color: white;
+	padding: 30px;
+	margin: 5px;
+	overflow: auto;
+}
+
+.domain #favicon {
+	padding: 20px;
+	float: left;
+
+}
+
+.domain #domainInformation {
+	float: left;
+	width: 430px;
+}
+
+
+.domain #title {
+	font-size: 20px;
+}
+
+.domain #favicon img {
+	height: 54px;
+	width: 54px;
+}
+
+.domain #description {
+	font-size: 12px;
+}
+
+// end domain index
 
 /*---------------- Flash ------------------------*/
 

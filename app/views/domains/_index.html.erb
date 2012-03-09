@@ -1,6 +1,15 @@
 <% for domain in @domains %>
-	<h1 class="domainHeader"><%= image_tag domain.url + "/favicon.ico", :class => :favicon %> <%= domain.title %> </h1>
-
+	<div class="domain">
+		<div id="favicon"><%= image_tag domain.url + "/favicon.ico", :class => :favicon %></div>
+		<div id="domainInformation">
+			<div id="title">
+				<%= domain.title %>
+			</div>
+			<div id="description">
+				<%= domain.description %>
+			</div>
+		</div>
+	</div>
 	<% if admin? %>
 		<%= link_to "Edit", edit_domain_path(domain) %>
 		<%= link_to "Delete", domain_path(domain), :method => :delete %>

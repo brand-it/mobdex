@@ -1,19 +1,107 @@
 * {
 	margin: 0px;
 	padding: 0px;
-	font-family: Verdana;
-
+	font-family: Georgia;
+	font-size: 42px;
 	background-repeat:repeat-x;
 }
 
 body {
-	background-image: url(<%= asset_path "search_box_background.jpg" %>);
+//	background-image: url(<%= asset_path "mobile_search_box_background.jpg" %>);
+	background-color: #c8dfe7;
 	height: 100%;
+	
+}
+
+#content {
+	width: 820px;
+	margin: auto;
+}
+
+// Domains Search 
+#search {
+	background-image: url(<%= asset_path "mobile_inner_background.jpg" %>);
+	border-style: none;
+	padding: 9px;
+	float:left;
+	margin: 0px;
+	border-width: 0px;
+	outline: none;
+	width: 620px;
+	height: 55px;
+	font-size: 45px;
+}
+
+#border {
+	overflow:auto;
+	background-image: url(<%= asset_path "mobile_search_box_background.jpg" %>);
+	background-repeat:none;
+	width: 800px;
+	height: 138px;
+}
+
+#border form {
+	display: inline;
+}
+
+#capLeft {
+	float: left;
+}
+
+#capRight {
+	float: left;
+}
+#searchInputWraper {
+	margin: 35px;
+}
+
+#searchButton {
+	background:url(<%= "mobile_search_btn.png" %>) no-repeat;
+    cursor:pointer;
+    width: 72px;
+    height: 72px;
+    border: none;
+}
+
+// End Domains Search
+
+
+// Domain index
+
+
+.domain {
+	background-color: white;
+	padding: 30px;
+	margin: 5px;
+	overflow: auto;
+}
+
+.domain #favicon {
+	padding: 20px;
+	float: left;
+
+}
+
+.domain #domainInformation {
+	float: left;
+	width: 600px;
+}
+
+
+.domain #title {
+	font-size: 30px;
+}
+
+.domain #favicon img {
+	height: 54px;
+	width: 54px;
+}
+
+.domain #description {
 	font-size: 12px;
 }
 
-#domains { 
-}
+// end domain index
 
 /*---------------- Flash ------------------------*/
 
