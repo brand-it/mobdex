@@ -6,5 +6,29 @@
 <% end %>
 <%= render "search" %>
 <div class="domains">
-	<%= render "index" %>
+	<% for domain in @domains %>
+		<%= link_to domain_path(domain) do %>
+			<div class="domain">
+				<div id="favicon">
+					<%= image_tag domain.url + "/favicon.ico", :class => :favicon %>
+				</div>
+				<div id="domainInformation">
+					<div id="title">
+						<%= domain.title %>
+					</div>
+					<div id="description">
+						<%= domain.description %>
+					</div>
+					<div id="tags">
+						Tags: <%= domain.tags.map{|tag| tag.name}.join(", ") %>
+					</div>
+				</div>
+			</div>
+		<% end %>
+		<% if admin? %>
+			<%= link_to "Edit", edit_domain_path(domain) %>
+			<%= link_to "Delete", domain_path(domain), :method => :delete %>
+			Data was updated <%= time_ago_in_words(domain.data_recived_on) unless domain.data_recived_on.nil? %>
+		<% end %>
+	<% end %>
 </div>

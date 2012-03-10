@@ -1,11 +1,13 @@
 <div id="information">
 	<h1><%= @domain.title %></h1>
 	<p><%= @domain.description %></p>
+	<p>Tags: <%= @domain.tags.map{|tag| tag.name}.join(", ") %></p>
 	<div><%= link_to @domain.url, @domain.url, :target => :blank %></div>
 	<div><%= link_to @domain.mobile_url, @domain.mobile_url, :target => :blank %></div>
-	<div>
-		<% for tag in @domain.tags %>
-			<p><%= tag.name %></p>
-		<% end %>
-	</div>
+	<% if @domain.request_type != "https" %>
+		<%= content_tag :iframe, "", :src => @domain.url, :class => :domainIframe %>
+	<% else %>
+		<%= link_to "Secure Session Site Go to link", @domain.url %>
+	<% end %>
+	
 </div>
