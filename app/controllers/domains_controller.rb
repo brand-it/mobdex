@@ -1,5 +1,5 @@
 class DomainsController < ApplicationController
-  before_filter :admin_authorized, :except => [:index, :show]
+  before_filter :admin_authorized, :except => [:index, :show, :get_ssl_url]
   
   def show
     @domain = Domain.find(params[:id])
