@@ -15,16 +15,28 @@ class Domain < ActiveRecord::Base
   
   attr_writer :tag_names
   
+  def favicon_url
+    
+    if self.favicon_path.slice(/(https|http)/).nil?
+      self.url + "/" + self.favicon_path
+    else
+      self.favicon_path
+    end
+    
+  end
   
-  def request_type
+  # There are only two request types I can think of right now
+  def url_request_type
     url.slice(/(https|http)/)
   end
   
+  # Used for the forms
   def tag_names
      @tag_names || tags.map(&:name).join(' ')
   end
    
-  def self.search(search)
+  # This is the search system every search should use this.
+  def self.search(search) 
     norsults = false
     unless search.nil?
       search = scrub_search(search)
@@ -39,6 +51,7 @@ class Domain < ActiveRecord::Base
     return domains, noresults
   end
   
+  # Admin should only call this method check make sure of this in controller
   def self.update_all_domains
     domains = self.all
     success = true
@@ -52,12 +65,17 @@ class Domain < ActiveRecord::Base
   
   private
   
+  # This will put the information from the server. However if a bad url is given it will error. No fix at current
   def get_data
-    # The only reason we do this is because we could get a bad url in the system. We are going to try to fix this rather then just redirecting
-    doc = Nokogiri::HTML(open(url))
-    self.title = doc.title.to_s
-    self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
-    self.data_recived_on = Time.now
+    begin
+      doc = Nokogiri::HTML(open(url))
+      self.title = doc.title.to_s
+      self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
+      self.data_recived_on = Time.now
+    rescue 
+    ensure
+    end
+
   end
   
   def assign_tags
@@ -84,6 +102,7 @@ class Domain < ActiveRecord::Base
       request_response = url.split("//")[0] + "//"
       uri_split = url.split("//")[1].split(".")
     end
+    
     # Step two and three check for the .com and www at the begging. The count is to make sure that is it missing something and not just taking the place of a sub domain.
     if uri_split.count <= 2
       two = url.slice(/(com|gov|org|net)/)
@@ -98,13 +117,22 @@ class Domain < ActiveRecord::Base
     end
     
     
+    path_seperator = uri_split[uri_split.length - 1].split(/\//)
+    if path_seperator && path_seperator.length <= 1
+      uri_split[uri_split.length - 1] = path_seperator
+    end
+    
+    
+   
     string = uri_split.map{ |split| split }.join(".").to_s
+    # I can't figure this part out but it sucks
+    path_thing = string.split(/\//) 
     unless url.blank?
       url = request_response + string
     end
   end
   
-  # This will turn all search information into something that PG can match. More features to be added
+  # This will turn all search information into something that PG can match
   def self.scrub_search(search)
     split_search = search.downcase.split(" ")
     
@@ -119,6 +147,7 @@ class Domain < ActiveRecord::Base
       title_array << "lower(title) LIKE '%#{split}%'"
       tag_array << "lower(tags.name) LIKE '%#{split}%'"
     end
+    
     # You can only join a array however we do not want to add data to a array that is nil
     array_string = Array.new
     

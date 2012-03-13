@@ -63,4 +63,11 @@ class DomainsController < ApplicationController
     
     redirect_to domains_path
   end
+  
+  def get_ssl_url
+    domain = Domain.find(params[:id])
+    @content = ssl_fetch(domain.url)
+    
+    render :layout => false
+  end
 end

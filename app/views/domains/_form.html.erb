@@ -10,7 +10,16 @@
 </div>
 
 
-<p>
+<div>
   <%= form.label :tag_names %><br />
   <%= form.text_field :tag_names %>
-</p>
+</div>
+
+<div>
+	<%= form.label :favicon_path %><br />
+	<%= form.text_field :favicon_path %>
+</div>
+
+<div>
+	<%= image_tag "search_btn.jpg", :id => :favicon_preview %>
+</div>

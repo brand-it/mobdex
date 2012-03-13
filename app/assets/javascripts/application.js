@@ -7,3 +7,26 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+
+$(document).ready(function() {
+	// alert('Handler for .change() called.');
+	$("#domain_favicon_path").keypress(function() {
+		previewFavicon();
+	});
+	$("#domain_url").keypress(function() {
+		previewFavicon();
+	});
+	
+	// iframeLoader();
+});
+
+function previewFavicon() {
+	src = $("#domain_url").val() + "/" + $("#domain_favicon_path").val();
+	$("#favicon_preview").attr("src", src);
+}; 
+
+
+function iframeLoader(body){
+	$("#iframe").contents(body);
+}

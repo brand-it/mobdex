@@ -14,6 +14,10 @@ gem "authlogic"
 # Email for errors 
 gem "exception_notification"
 
+#Screen Shot Gem I know some one build this That means I don't have to work on creating it.
+# Oh one more thing using this requires a bit of understading. Pulling the css information
+gem "imgkit"
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

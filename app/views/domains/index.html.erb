@@ -7,10 +7,16 @@
 <%= render "search" %>
 <div class="domains">
 	<% for domain in @domains %>
+		<%= domain.url %></br>
+	<% end %>
+	<% for domain in @domains %>
 		<%= link_to domain_path(domain) do %>
 			<div class="domain">
 				<div id="favicon">
-					<%= image_tag domain.url + "/favicon.ico", :class => :favicon %>
+					<%#= domain.url %>
+					<%#= res.body %>
+					
+					<%= image_tag domain.favicon_url %>
 				</div>
 				<div id="domainInformation">
 					<div id="title">

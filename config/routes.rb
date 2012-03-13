@@ -5,6 +5,10 @@ Mobdex::Application.routes.draw do
   resources :domains do
     collection do
       get "update_all"
+     
+    end
+    member do 
+       get "get_ssl_url"
     end
   end
   

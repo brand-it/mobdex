@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  require "net/http"
+  require "uri"
+  
   protect_from_forgery
   helper_method :current_user_session, :current_user
   
@@ -53,6 +56,55 @@ class ApplicationController < ActionController::Base
     session[:return_to] || root_path
   end
   
+  # Note this code can be made to infinite loop don't I mean don't screw this up
+  def fetch(uri_str, limit = 10)
+    # You should choose better exception.
+    raise ArgumentError, 'HTTP redirect too deep' if limit == 0
+
+    uri = URI.parse(uri_str + "/")
+    # Shortcut
+    response = Net::HTTP.get_response(uri)
+    
+    case response
+    when Net::HTTPForbidden then response
+    when Net::HTTPNotFound then response
+    when Net::HTTPSuccess   then response
+    when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+    else
+      response.error!
+    end
+  end
+  
+  def ssl_fetch(uri_str, limit = 10)
+    # You should choose better exception.
+    raise ArgumentError, 'HTTP redirect too deep' if limit == 0
+
+    uri = URI.parse(uri_str + "/")
+    # Shortcut
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    
+    request = Net::HTTP::Get.new(uri.request_uri)
+    response = http.request(request)
+    
+    case response
+    when Net::HTTPForbidden then response
+    when Net::HTTPNotFound then response
+    when Net::HTTPSuccess   then response
+    when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+    else
+      response.error!
+    end
+  end
+  
+  def check_status(uri_str, code)
+    response = fetch(uri_str)
+    if response.code.to_i == code
+      true
+    else
+      false
+    end
+  end
   
   private 
   
