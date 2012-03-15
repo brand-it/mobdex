@@ -12,8 +12,7 @@ class DomainsController < ApplicationController
     if noresults
       flash[:notice] = "I could not find any results. Sorry"
     else
-      # We do this because flash will some times keep the data for more the one request
-      flash[:notice] = nil
+      flash[:notice] = "Results found for #{params[:search]}"
     end
   end
   
