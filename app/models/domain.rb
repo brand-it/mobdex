@@ -82,6 +82,7 @@ class Domain < ActiveRecord::Base
     
     if limit != 0
       case response
+      when Net::HTTPForbidden then false
       when Net::HTTPSuccess   then response
       when Net::HTTPRedirection then fetch(response['location'], limit - 1)
       when Net::HTTPServiceUnavailable then fetch(url_string, limit - 1)
@@ -113,7 +114,6 @@ class Domain < ActiveRecord::Base
         self.tag_names = content_keywords
         self.data_recived_on = Time.now
     end
-   
   end
   
   def assign_tags
