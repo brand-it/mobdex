@@ -12,6 +12,7 @@ class Domain < ActiveRecord::Base
   
   after_validation :clean_urls
   before_save :get_data
+  before_update :get_data
   after_save :assign_tags
   
   attr_writer :tag_names
@@ -72,10 +73,8 @@ class Domain < ActiveRecord::Base
     http = Net::HTTP.new(uri.host, uri.port)
     
     if url_string.slice(/(https|http)/) == "https"
-      puts "URL IS HTTPS"
       http.use_ssl = true
     else
-      puts "URL IS HTTP"
       http.use_ssl = false
     end
     
@@ -83,14 +82,14 @@ class Domain < ActiveRecord::Base
     
     if limit != 0
       case response
-      when Net::HTTPForbidden then response
-      when Net::HTTPNotFound then response
       when Net::HTTPSuccess   then response
       when Net::HTTPRedirection then fetch(response['location'], limit - 1)
       when Net::HTTPServiceUnavailable then fetch(url_string, limit - 1)
       else
         response.error!
       end
+    else
+      return response
     end
   end
   
@@ -99,22 +98,22 @@ class Domain < ActiveRecord::Base
   def get_data
     response = fetch
     if response
-      puts "Adding data now"
-      doc = Nokogiri::HTML(response.body)
-      self.title = doc.title.to_s
-      content_description = doc.xpath("//meta[@name='description']/@content")
-      # Some people use the wrong capitlization
-      if content_description.blank?
-        content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
-      end
-      self.description = content_description.to_s
-      content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
-      if content_keywords.blank?
-        content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
-      end
-      self.tag_names = content_keywords
-      self.data_recived_on = Time.now
+        doc = Nokogiri::HTML(response.body)
+        self.title = doc.title.to_s
+        content_description = doc.xpath("//meta[@name='description']/@content")
+        # Some people use the wrong capitlization
+        if content_description.blank?
+          content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
+        end
+        self.description = content_description.to_s
+        content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
+        if content_keywords.blank?
+          content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
+        end
+        self.tag_names = content_keywords
+        self.data_recived_on = Time.now
     end
+   
   end
   
   def assign_tags
