@@ -1,5 +1,6 @@
 class DomainsController < ApplicationController
-  before_filter :admin_authorized, :except => [:index, :show, :get_data]
+  # before_filter :admin_authorized, :except => [:index, :show, :get_data]
+  # layout "admin", :only => [:edit, :create]
   
   def show
     @domain = Domain.find(params[:id])
@@ -14,54 +15,6 @@ class DomainsController < ApplicationController
       # We do this because flash will some times keep the data for more the one request
       flash[:notice] = nil
     end
-  end
-  
-  def new
-    @domain = Domain.new
-  end
-  
-  def edit
-    @domain = Domain.find(params[:id])
-  end
-  
-  def update
-    @domain = Domain.find(params[:id])
-
-    if @domain.update_attributes(params[:domain])
-      redirect_to domains_path
-    else
-      render :action => "edit"
-    end
-  end
-  
-  def create
-    @domain = Domain.new(params[:domain])
-    
-    if @domain.save
-      flash[:success] = "Domain #{@domain.url} has been created"
-      redirect_to domains_path
-    else
-      flash[:error] = "Domain could not be created do to a error"
-      render :action => :new
-    end
-  end
-  
-  def destroy
-    @domain = Domain.find(params[:id])
-    @domain.delete
-    
-    redirect_to domains_path
-  end
-  
-  def update_all
-    @status = Domain.update_all_domains
-    if @status
-      flash[:success] = "All information was successfully updated"
-    else
-      flash[:error] = "Some of the information could not be updated dew to a error. Please contact admin."
-    end
-    
-    redirect_to domains_path
   end
   
   def get_data

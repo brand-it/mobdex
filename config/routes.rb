@@ -2,13 +2,15 @@ Mobdex::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
   
-  resources :domains do
-    collection do
-      get "update_all"
-     
-    end
+  resources :domains, :only => [:index, :show] do
     member do 
        get "get_data"
+    end
+  end
+  
+  resources :admin_domains do
+    collection do
+      get "update_all"
     end
   end
   

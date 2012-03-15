@@ -1,0 +1,104 @@
+<div id="sidebar">
+	<div id="sidebar-wrapper"> <!-- Sidebar with logo and menu -->
+
+		<h1 id="sidebar-title"><a href="#">Simpla Admin</a></h1>
+
+	<!-- Logo (221px wide) -->
+	<%= link_to image_tag("logo.png", :id => :logo) %>
+
+	<!-- Sidebar Profile links -->
+	<div id="profile-links">
+		Hello, <%= link_to current_user.full_name %>, you have no messages<br>
+		<br>
+		<%= link_to "View the Site", root_path %> | <%= link_to "Sign Out", logout_path %>
+	</div>    
+
+	<ul id="main-nav">  <!-- Accordion Menu -->
+
+		<li>
+			<a href="index.html" class="nav-top-item no-submenu" style="padding-right: 15px; "> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+				Dashboard
+			</a>       
+		</li>
+
+		<li> 
+			<a href="#" class="nav-top-item current" style="padding-right: 15px; "> <!-- Add the class "current" to current menu item -->
+				Single Domains
+			</a>
+			<ul style="display: block; ">
+				<li><a href="find.html">Find Domains</a></li>
+				<li><a href="add.html">Add a Domain</a></li>
+				<li><a class="current" href="#">Edit a Domain</a></li> <!-- Add class "current" to sub menu items also -->
+				<li><a href="remove.html">Remove a Domain</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="#" class="nav-top-item">
+				Bulk Domains
+			</a>
+			<ul style="display: none; ">
+				<li><a href="add_bulk.html">Add multiple Domains</a></li>
+				<li><a class="current" href="edit_bulk.html">Edit multiple Domains</a></li> <!-- Add class "current" to sub menu items also -->
+				<li><a href="remove_bulk.html">Remove multiple Domains</a></li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="#" class="nav-top-item" style="padding-right: 15px; ">
+				Feedback
+			</a>
+			<ul style="display: none; ">
+				<li><a href="open_feedback.html">View Open Feedback (#)</a></li>
+				<li><a href="closed_feedback.html">View Closed Feedback</a></li>
+			</ul>
+		</li>
+
+
+	</ul> <!-- End #main-nav -->
+
+	<div id="messages" style="display: none"> <!-- Messages are shown when a link with these attributes are clicked: href="#messages" rel="modal"  -->
+
+		<h3>3 Messages</h3>
+
+		<p>
+			<strong>17th May 2009</strong> by Admin<br>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue.
+			<small><a href="#" class="remove-link" title="Remove message">Remove</a></small>
+		</p>
+
+		<p>
+			<strong>2nd May 2009</strong> by Jane Doe<br>
+			Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.
+			<small><a href="#" class="remove-link" title="Remove message">Remove</a></small>
+		</p>
+
+		<p>
+			<strong>25th April 2009</strong> by Admin<br>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue.
+			<small><a href="#" class="remove-link" title="Remove message">Remove</a></small>
+		</p>
+
+		<form action="#" method="post">
+
+			<h4>New Message</h4>
+
+			<fieldset>
+				<textarea class="textarea" name="textfield" cols="79" rows="5"></textarea>
+			</fieldset>
+
+			<fieldset>
+
+				<select name="dropdown" class="small-input">
+					<option value="option1">Send to...</option>
+					<option value="option2">Everyone</option>
+					<option value="option3">Admin</option>
+					<option value="option4">Jane Doe</option>
+				</select>
+
+				<input class="button" type="submit" value="Send">
+
+			</fieldset>
+		</form>
+	</div> <!-- End #messages -->
+</div>
