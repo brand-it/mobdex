@@ -68,7 +68,7 @@ class Domain < ActiveRecord::Base
     # raise ArgumentError, 'HTTP redirect too deep stoped at ' + url if limit == 0
     url_string = self.url if url_string.nil?
     puts "URL: " + url_string
-    uri = URI.parse(url_string)
+    uri = URI.parse(url_string + "/")
     # Shortcut
     http = Net::HTTP.new(uri.host, uri.port)
     

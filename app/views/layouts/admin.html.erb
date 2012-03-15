@@ -36,6 +36,7 @@
 						<ul style="display: block; ">
 							<li><%= link_to "Add a Domain", new_admin_domain_path, :class => current_view(params, :controller => :admin_domains, :action => :new, :result => :current) %></li>
 							<li><%= link_to "Edit a Domain", admin_domains_path, :class => current_view(params, :controller => :admin_domains, :action => :index, :result => :current)%></li>
+							<li><%= link_to "Update All Domains", update_all_admin_domains_path%></li>
 						</ul>
 					<% end %>
 				</li>
