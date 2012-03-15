@@ -11,7 +11,7 @@ class DomainsController < ApplicationController
     @tags = Tag.all
     if noresults
       flash[:notice] = "I could not find any results. Sorry"
-    else
+    elsif !params[:search].blank?
       flash[:notice] = "Results found for #{params[:search]}"
     end
   end
