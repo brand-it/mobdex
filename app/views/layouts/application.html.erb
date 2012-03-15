@@ -2,18 +2,20 @@
 <html>
 <head>
 	<title>MobDex</title>
+	<%= stylesheet_link_tag "bootstrap" %>
+	<%= stylesheet_link_tag "bootstrap_responsive"%>
 	<%= stylesheet_link_tag "application" %>
+	
 	<%= javascript_include_tag "application" %>
 	<%= csrf_meta_tags %>
 </head>
 <body>
-	<div id="content">
-		<div id="flashNotifier">
-			<%= flash_notifier %>
-		</div>
-		<div id="header">
-			<h1>Mobdex Development Branch</h1>
-		</div>
+	<div class="container">
+		<header class="row">
+    		<div class="span4 offset4">
+    			<h1 class="logo">MOBDEX</h1>
+    		</div>    		
+    	</header>
 		<%= yield %>
 	</div>
 </body>

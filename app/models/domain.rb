@@ -1,6 +1,8 @@
 class Domain < ActiveRecord::Base
   require 'open-uri'
   require 'nokogiri'
+  require "net/http"
+  require "uri"
   
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings, :dependent => :destroy
@@ -16,13 +18,11 @@ class Domain < ActiveRecord::Base
   attr_writer :tag_names
   
   def favicon_url
-    
     if self.favicon_path.slice(/(https|http)/).nil?
       self.url + "/" + self.favicon_path
     else
       self.favicon_path
     end
-    
   end
   
   # There are only two request types I can think of right now
@@ -32,7 +32,7 @@ class Domain < ActiveRecord::Base
   
   # Used for the forms
   def tag_names
-     @tag_names || tags.map(&:name).join(' ')
+     @tag_names || tags.map(&:name).join(',')
   end
    
   # This is the search system every search should use this.
@@ -63,24 +63,64 @@ class Domain < ActiveRecord::Base
     return success
   end
   
+  def fetch(url_string = nil, limit = 10)
+    # You should choose better exception.
+    # raise ArgumentError, 'HTTP redirect too deep stoped at ' + url if limit == 0
+    url_string = self.url if url_string.nil?
+    puts "URL: " + url_string
+    uri = URI.parse(url_string)
+    # Shortcut
+    http = Net::HTTP.new(uri.host, uri.port)
+    
+    if url_string.slice(/(https|http)/) == "https"
+      puts "URL IS HTTPS"
+      http.use_ssl = true
+    else
+      puts "URL IS HTTP"
+      http.use_ssl = false
+    end
+    
+    response = http.request(Net::HTTP::Get.new(uri.request_uri))
+    
+    if limit != 0
+      case response
+      when Net::HTTPForbidden then response
+      when Net::HTTPNotFound then response
+      when Net::HTTPSuccess   then response
+      when Net::HTTPRedirection then fetch(response['location'], limit - 1)
+      when Net::HTTPServiceUnavailable then response
+      else
+        response.error!
+      end
+    end
+  end
+  
   private
   
-  # This will put the information from the server. However if a bad url is given it will error. No fix at current
   def get_data
-    begin
-      doc = Nokogiri::HTML(open(url))
+    response = fetch
+    if response
+      puts "Adding data now"
+      doc = Nokogiri::HTML(response.body)
       self.title = doc.title.to_s
-      self.description = doc.xpath("/html/head/meta[@name='description']/@content").to_s
+      content_description = doc.xpath("//meta[@name='description']/@content")
+      # Some people use the wrong capitlization
+      if content_description.blank?
+        content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
+      end
+      self.description = content_description.to_s
+      content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
+      if content_keywords.blank?
+        content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
+      end
+      self.tag_names = content_keywords
       self.data_recived_on = Time.now
-    rescue 
-    ensure
     end
-
   end
   
   def assign_tags
     if @tag_names
-      self.tags = @tag_names.split(/\s+/).map do |name|
+      self.tags = @tag_names.split(",").map do |name|
         Tag.find_or_create_by_name(name.downcase)
       end
     end

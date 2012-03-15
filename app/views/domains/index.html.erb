@@ -1,40 +1,22 @@
-<% if admin? %>
+<!-- <% if admin? %>
 	<div id="subNavi">
 		<%= link_to "New Domain", new_domain_path %>
 		<%= link_to "Update All", update_all_domains_path, :confirm => "If you click this it could take a lot of time to run. Are you sure."%>
 	</div>
-<% end %>
+<% end %> -->
+
 <%= render "search" %>
-<div class="domains">
+<section class="row content">
 	<% for domain in @domains %>
-		<%= domain.url %></br>
+	    	<div class="span4 offset4 well">
+	    		<%= image_tag domain.favicon_url %>
+	    		<h2><%= link_to truncate(domain.title, :length => 50, :separator => ' '), domain_path(domain) %></h2>
+	    		<p>
+					<%= truncate(domain.description, :length => 150, :separator => ' ') %>
+	    		</p>
+				<% if domain.tags.length > 0 %>
+	    		<span class="tags"><i class="icon-tag"></i> <%= domain.tags.limit(5).map{|tag| truncate(tag.name, :length => 12, :separator => ' ')}.join(", ") %></span>
+				<% end %>
+	    	</div>
 	<% end %>
-	<% for domain in @domains %>
-		<%= link_to domain_path(domain) do %>
-			<div class="domain">
-				<div id="favicon">
-					<%#= domain.url %>
-					<%#= res.body %>
-					
-					<%= image_tag domain.favicon_url %>
-				</div>
-				<div id="domainInformation">
-					<div id="title">
-						<%= domain.title %>
-					</div>
-					<div id="description">
-						<%= domain.description %>
-					</div>
-					<div id="tags">
-						Tags: <%= domain.tags.map{|tag| tag.name}.join(", ") %>
-					</div>
-				</div>
-			</div>
-		<% end %>
-		<% if admin? %>
-			<%= link_to "Edit", edit_domain_path(domain) %>
-			<%= link_to "Delete", domain_path(domain), :method => :delete %>
-			Data was updated <%= time_ago_in_words(domain.data_recived_on) unless domain.data_recived_on.nil? %>
-		<% end %>
-	<% end %>
-</div>
+</section>

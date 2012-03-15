@@ -8,7 +8,7 @@ Mobdex::Application.routes.draw do
      
     end
     member do 
-       get "get_ssl_url"
+       get "get_data"
     end
   end
   
