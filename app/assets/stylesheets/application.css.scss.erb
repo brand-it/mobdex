@@ -3,7 +3,7 @@
  * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
  * the top of the compiled file, but it's generally better to create a new file per style scope.
  *= require_self
- *= require_tree .
+*= require_tree .
 */
 
 
@@ -24,12 +24,14 @@ body{
 	background-image: -o-linear-gradient(top, #f097b1, #e76387);
 	background-image: -ms-linear-gradient(top, #f097b1, #e76387);
 	background-image: linear-gradient(top, #f097b1, #e76387);
+	padding: 4px 10px 4px;
 	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#f097b1', EndColorStr='#e76387');
 	border: 1px solid #dc2f59;
 	-moz-box-shadow: 0 1px 0 #dc2f59;
 	-webkit-box-shadow: 0 1px 0 #dc2f59;
 	box-shadow: 0 1px 0 #dc2f59;
 	margin-left: 5px;
+	border-radius: 4px;
 }
 
 .btn:hover{
