@@ -4,6 +4,14 @@ module ApplicationHelper
     render "layouts/errors", :object => object
   end
   
+  def flash? 
+    if flash_notifier.blank?
+      return false
+    else
+      return true
+    end
+  end
+  
   def flash_notifier
     if flash[:error]
       notice = content_tag(:p, flash[:error], :class => "error-message")

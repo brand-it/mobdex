@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120312043426) do
+ActiveRecord::Schema.define(:version => 20120315040958) do
 
   create_table "domains", :force => true do |t|
     t.text      "url"
@@ -20,12 +20,8 @@ ActiveRecord::Schema.define(:version => 20120312043426) do
     t.timestamp "data_recived_on"
     t.text      "mobile_url"
     t.text      "favicon_path",    :default => "favicon.ico"
-  end
-
-  create_table "photos", :force => true do |t|
-    t.string   "image"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime  "create_at"
+    t.datetime  "updated_at"
   end
 
   create_table "taggings", :force => true do |t|

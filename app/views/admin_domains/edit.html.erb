@@ -1,10 +1,7 @@
-<div id="information">
-	<h1>Edit Domain <%= @domain.url %></h1>
 
-	<div class="form">
-		<%= form_for(@domain) do |f| %>
-	  		<%= render "form", :form => f %>
-	  		<%= f.submit %>
-		<% end %>
-	</div>
+<div class="form">
+	<%= form_for(@domain, :url => admin_domain_path(@domain)) do |f| %>
+  		<%= render "form", :form => f %>
+  		<%= f.submit %>
+	<% end %>
 </div>

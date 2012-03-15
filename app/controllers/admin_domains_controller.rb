@@ -23,7 +23,8 @@ class AdminDomainsController < ApplicationController
     @domain = Domain.find(params[:id])
 
     if @domain.update_attributes(params[:domain])
-      redirect_to domains_path
+      flash[:success] = "Domain #{@domain.title} has been updated"
+      redirect_to admin_domains_path
     else
       render :action => "edit"
     end
@@ -34,7 +35,7 @@ class AdminDomainsController < ApplicationController
     
     if @domain.save
       flash[:success] = "Domain #{@domain.url} has been created"
-      redirect_to domains_path
+      redirect_to admin_domains_path
     else
       flash[:error] = "Domain could not be created do to a error"
       render :action => :new
@@ -45,7 +46,7 @@ class AdminDomainsController < ApplicationController
     @domain = Domain.find(params[:id])
     @domain.delete
     
-    redirect_to domains_path
+    redirect_to admin_domains_path
   end
   
   def update_all
@@ -56,6 +57,6 @@ class AdminDomainsController < ApplicationController
       flash[:error] = "Some of the information could not be updated dew to a error. Please contact admin."
     end
     
-    redirect_to domains_path
+    redirect_to admin_domains_path
   end
 end
