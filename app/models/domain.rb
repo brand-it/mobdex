@@ -12,7 +12,6 @@ class Domain < ActiveRecord::Base
   
   after_validation :clean_urls
   before_save :get_data
-  before_update :get_data
   after_save :assign_tags
   
   attr_writer :tag_names
@@ -88,7 +87,7 @@ class Domain < ActiveRecord::Base
       when Net::HTTPNotFound then response
       when Net::HTTPSuccess   then response
       when Net::HTTPRedirection then fetch(response['location'], limit - 1)
-      when Net::HTTPServiceUnavailable then response
+      when Net::HTTPServiceUnavailable then fetch(url_string, limit - 1)
       else
         response.error!
       end
