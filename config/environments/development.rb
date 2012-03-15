@@ -27,4 +27,7 @@ Mobdex::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  # I Put this here because I don't want to run rake in production mode ever time I need to compile.
+  # config.assets.precompile += %w( bootstrape.css.scss.erb, bootstrap_responsive.css, mobile.css.scss.erb )
 end
