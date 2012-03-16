@@ -1,0 +1,26 @@
+<div class="navbar navbar-fixed-bottom">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse" href="#mobile">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="#">Mobdex</a>
+			<div class="nav-collapse">
+				<ul class="nav" id="mobile">
+					<%= content_tag(:li, 
+						link_to("Home", domains_path), 
+						:class => current_view(params, :controller => :domains, :result => :active))
+					%>
+					<%= content_tag(:li, 
+						link_to("Login", login_path), 
+						:class => current_view(params, :controller => :user_session, :result => :active)
+					) unless logged_in? %>
+					<%= content_tag(:li, link_to("Logout " + current_user.first_name, logout_path)) if logged_in? %>
+					<%= content_tag(:li, link_to("Admin Panel", admin_domains_path)) if admin? %>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div>
+	</div>
+</div>

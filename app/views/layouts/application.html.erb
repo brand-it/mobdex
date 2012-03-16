@@ -9,12 +9,16 @@
 </head>
 <body>
 	<div class="container">
+			<%= render "layouts/application_navi" %>
 		<header class="row">
     		<div class="span4 offset4">
     			<h1 class="logo">MOBDEX</h1>
     		</div>    		
     	</header>
+
 		<%= yield %>
+		
+		<%= render "layouts/application_navi" %>
 	</div>
 </body>
 </html>
