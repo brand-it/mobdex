@@ -4,6 +4,11 @@
 	<p>Tags: <%= @domain.tags.map{|tag| tag.name}.join(", ") %></p>
 	<div><%= link_to @domain.url, @domain.url, :target => :blank %></div>
 	<div><%= link_to @domain.mobile_url, @domain.mobile_url, :target => :blank %></div>
-	<%= content_tag :iframe, "Iframe don't work on your browser", :src => get_data_domain_path(@domain), :class => :domainIframe %>
+	<% if @domain.url_request_type == "https" %>
+		<%= content_tag :iframe, "Iframe don't work on your browser", :src => get_data_domain_path(@domain), :class => :domainIframe %>
+	<% else%>
+		<%= content_tag :iframe, "Iframe don't work on your browser", :src => @domain.url, :class => :domainIframe %>
+	<% end %>
+	
 	
 </div>
