@@ -11,7 +11,7 @@
 				<ul class="nav" id="mobile">
 					<%= content_tag(:li, 
 						link_to("Home", domains_path), 
-						:class => current_view(params, :controller => :domains, :result => :active))
+						:class => current_view(params, :controller => :domains, :action => :index, :result => :active))
 					%>
 					<%= content_tag(:li, 
 						link_to("Login", login_path), 

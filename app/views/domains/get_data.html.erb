@@ -1,1 +1,5 @@
-<%= @domain.fetch.body.html_safe %>
+<% if @fetch %>
+	<%= @fetch.body.html_safe%>
+<% else %>
+	<%= link_to "Go To Site", @domain.url %>
+<% end %>
