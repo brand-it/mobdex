@@ -105,7 +105,9 @@ class Domain < ActiveRecord::Base
       if content_description.blank?
         content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
       end
-      self.description = content_description.to_s
+      unless content_description.blank?
+        self.description = content_description.to_s
+      end
       content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
       if content_keywords.blank?
         content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
