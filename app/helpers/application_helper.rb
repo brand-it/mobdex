@@ -8,6 +8,10 @@ module ApplicationHelper
     end
   end
   
+  def admin_errors(object)
+    render "layouts/admin_errors", :object => object
+  end
+  
   def errors(object)
     render "layouts/errors", :object => object
   end

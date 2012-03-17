@@ -82,12 +82,11 @@ class Domain < ActiveRecord::Base
     
     if limit != 0
       case response
-      when Net::HTTPForbidden then false
       when Net::HTTPSuccess   then response
       when Net::HTTPRedirection then fetch(response['location'], limit - 1)
       when Net::HTTPServiceUnavailable then fetch(url_string, limit - 1)
       else
-        response.error!
+        response
       end
     else
       return response
@@ -98,22 +97,23 @@ class Domain < ActiveRecord::Base
   
   def get_data
     response = fetch
-    if response
-        doc = Nokogiri::HTML(response.body)
-        self.title = doc.title.to_s
-        content_description = doc.xpath("//meta[@name='description']/@content")
-        # Some people use the wrong capitlization
-        if content_description.blank?
-          content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
-        end
-        self.description = content_description.to_s
-        content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
-        if content_keywords.blank?
-          content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
-        end
-        self.tag_names = content_keywords
-        self.data_recived_on = Time.now
+    if response.header.code == "200"
+      doc = Nokogiri::HTML(response.body)
+      self.title = doc.title.to_s
+      content_description = doc.xpath("//meta[@name='description']/@content")
+      # Some people use the wrong capitlization
+      if content_description.blank?
+        content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
+      end
+      self.description = content_description.to_s
+      content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
+      if content_keywords.blank?
+        content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
+      end
+      self.tag_names = content_keywords
+      self.data_recived_on = Time.now
     end
+    self.code = response.header.code.to_i
   end
   
   def assign_tags

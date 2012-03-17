@@ -31,7 +31,9 @@
 					   <th>Last Feedback</th>
 					   <th>Tags</th>
 					   <th>Last Modified</th>
+					   <th>Status Code</th>
 					   <th>Action</th>
+						
 					</tr>
 					
 				</thead>
@@ -70,11 +72,16 @@
 						<td><%= domain.tags.limit(3).map{|tag| truncate(tag.name, :length => 15, :separator => ' ')}.join(", ") %></td>
 						<td><%= time_ago_in_words domain.updated_at unless domain.updated_at.nil? %></td>
 						<td>
+							<%= domain.code %>
+						</td>
+						<td>
 							<!-- Icons -->
 							<%= link_to image_tag("pencil.png"), edit_admin_domain_path(domain) %>
-									 <%= link_to image_tag("cross.png"), admin_domain_path(domain), :method => :delete %>
-									 <a href="#" title="Edit Meta"><%= image_tag "hammer_screwdriver.png" %></a>
+							<%= link_to image_tag("cross.png"), admin_domain_path(domain), :method => :delete %>
+
+							<a href="#" title="Edit Meta"><%= image_tag "hammer_screwdriver.png" %></a>
 						</td>
+
 					</tr>
 					<% end %>
 					
