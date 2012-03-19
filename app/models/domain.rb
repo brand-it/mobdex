@@ -67,7 +67,6 @@ class Domain < ActiveRecord::Base
     # You should choose better exception.
     # raise ArgumentError, 'HTTP redirect too deep stoped at ' + url if limit == 0
     url_string = self.url if url_string.nil?
-    puts "URL: " + url_string
     uri = URI.parse(url_string + "/")
     # Shortcut
     http = Net::HTTP.new(uri.host, uri.port)
@@ -133,6 +132,9 @@ class Domain < ActiveRecord::Base
   
   # This will turn any string that is passed into into a url
   def build_url(url)
+    # this will remove any of the blank spaces. There is no reason for blank space in the url
+    url = url.gsub(" ", "")
+    
     # Step one tells me that the uri does have a  http or a https to use
     one = url.slice(/(https|http)/)
     if one.nil?

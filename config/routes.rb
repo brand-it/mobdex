@@ -14,6 +14,13 @@ Mobdex::Application.routes.draw do
     end
   end
   
+  resources :mass_domains do
+    member do
+      get "error_message"
+      get "add_domains"
+    end
+  end
+  
   match "/domains/search/:search" => "domains#index", :as => "search_domains"
 
   resources :tags, :only => [:index, :show]

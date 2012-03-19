@@ -31,24 +31,21 @@
 				</li>
 
 				<li> 
-					<%= link_to "Single Domains", "#", :class => ["nav-top-item", current_view(params, :controller => :admin_domains, :result => :current)], :style => "padding-right: 15px;" %>
-					<% if current_view(params, :controller => :admin_domains) %>
-						<ul style="display: block; ">
-							<li><%= link_to "Add a Domain", new_admin_domain_path, :class => current_view(params, :controller => :admin_domains, :action => :new, :result => :current) %></li>
-							<li><%= link_to "Edit a Domain", admin_domains_path, :class => current_view(params, :controller => :admin_domains, :action => :index, :result => :current)%></li>
-							<li><%= link_to "Update All Domains", update_all_admin_domains_path%></li>
-						</ul>
-					<% end %>
+					<%= link_to "Single Domains", domains_path, :class => ["nav-top-item", current_view(params, :controller => :admin_domains, :result => :current)], :style => "padding-right: 15px;" %>
+					<ul style="display: block; ">
+						<li><%= link_to "Add a Domain", new_admin_domain_path, :class => current_view(params, :controller => :admin_domains, :action => :new, :result => :current) %></li>
+						<li><%= link_to "Edit a Domain", admin_domains_path, :class => current_view(params, :controller => :admin_domains, :action => :index, :result => :current)%></li>
+						<li><%= link_to "Update All Domains", update_all_admin_domains_path%></li>
+					</ul>
 				</li>
 
 				<li>
-					<a href="#" class="nav-top-item">
-						Bulk Domains
-					</a>
+					<%= link_to "Bulk Domains", new_mass_domain_path, :class => ["nav-top-item", current_view(params, :controller => :mass_domains, :result => :current)] %>
 					<ul style="display: none; ">
-						<li><a href="add_bulk.html">Add multiple Domains</a></li>
-						<li><a class="current" href="edit_bulk.html">Edit multiple Domains</a></li> <!-- Add class "current" to sub menu items also -->
-						<li><a href="remove_bulk.html">Remove multiple Domains</a></li>
+						<li><%= link_to "Add multiple Domains", new_mass_domain_path, :class => current_view(params, :controller => :mass_domains, :action => :new, :result => :current) %>
+						<li><%= link_to "Mass Domains List", mass_domains_path, :class => current_view(params, :controller => :mass_domains, :action => :index, :result => :current) %>
+						 <!-- Add class "current" to sub menu items also -->
+						<!-- <li><a href="remove_bulk.html">Remove multiple Domains</a></li> -->
 					</ul>
 				</li>
 

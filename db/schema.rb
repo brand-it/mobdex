@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120317064926) do
+ActiveRecord::Schema.define(:version => 20120319202745) do
 
   create_table "domains", :force => true do |t|
     t.text      "url"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20120317064926) do
     t.timestamp "create_at"
     t.timestamp "updated_at"
     t.integer   "code"
+  end
+
+  create_table "mass_domains", :force => true do |t|
+    t.text     "domains"
+    t.integer  "parse_type",    :default => 1
+    t.boolean  "added",         :default => false
+    t.datetime "added_on"
+    t.boolean  "error",         :default => false
+    t.text     "error_message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "taggings", :force => true do |t|
