@@ -170,7 +170,7 @@ class Domain < ActiveRecord::Base
     
     # Step two and three check for the .com and www at the begging. The count is to make sure that is it missing something and not just taking the place of a sub domain.
     if uri_split.count <= 2
-      two = url.slice(/(com|gov|org|net)/)
+      two = url.slice(/(com|gov|org|net|mobi)/)
       three = url.slice(/(www)/)
       # don't add if the thing is there
       if three.nil?
