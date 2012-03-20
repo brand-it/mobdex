@@ -132,8 +132,9 @@ class Domain < ActiveRecord::Base
   
   # This will turn any string that is passed into into a url
   def build_url(url)
-    # this will remove any of the blank spaces. There is no reason for blank space in the url
-    url = url.gsub(" ", "")
+    # this will remove any of the blank spaces. There is no reason for blank space in the url or brake lines
+    url = url.gsub(" ", "").gsub(/\n/, "").gsub(/\r/, "")
+    
     
     # Step one tells me that the uri does have a  http or a https to use
     one = url.slice(/(https|http)/)
