@@ -18,6 +18,9 @@ gem "exception_notification"
 # Oh one more thing using this requires a bit of understading. Pulling the css information
 gem "imgkit"
 
+# Pagination
+gem 'kaminari'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

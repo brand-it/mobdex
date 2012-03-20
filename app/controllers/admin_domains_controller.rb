@@ -7,7 +7,7 @@ class AdminDomainsController < ApplicationController
   def show
   end
   def index
-    @domains = Domain.all
+    @domains = Domain.order(:title).page params[:page]
   end
   
   
