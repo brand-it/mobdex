@@ -42,8 +42,8 @@
 				<li>
 					<%= link_to "Bulk Domains", new_mass_domain_path, :class => ["nav-top-item", current_view(params, :controller => :mass_domains, :result => :current)] %>
 					<ul style="display: none; ">
-						<li><%= link_to "Add multiple Domains", new_mass_domain_path, :class => current_view(params, :controller => :mass_domains, :action => :new, :result => :current) %>
-						<li><%= link_to "Mass Domains List", mass_domains_path, :class => current_view(params, :controller => :mass_domains, :action => :index, :result => :current) %>
+						<li><%= link_to "Add Domains", new_mass_domain_path, :class => current_view(params, :controller => :mass_domains, :action => :new, :result => :current) %>
+						<li><%= link_to "Domains List", mass_domains_path, :class => current_view(params, :controller => :mass_domains, :action => :index, :result => :current) %>
 						 <!-- Add class "current" to sub menu items also -->
 						<!-- <li><a href="remove_bulk.html">Remove multiple Domains</a></li> -->
 					</ul>

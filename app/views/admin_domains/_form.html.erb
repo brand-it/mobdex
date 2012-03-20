@@ -1,60 +1,57 @@
 
-		<%= admin_errors(@domain)%>                                       <fieldset>
-                                                               
-                                                                <p>
-                                                                        <label>Domain Names</label>
-                                                                                <%= form.text_field(:url, :class => 'text-input small-input') %><br />
-                                                                                <small><strong>Main URL</strong> that the site is based on. We will pull META from this.</small><br />
-                                                                                <%= form.text_field(:mobile_url, :class => 'text-input small-input') %><br />
-                                                                                <small><strong>Mobile URL</strong> is the URL that the users will see.</small><br />
-                                                                                <input class="text-input small-input" type="text" id="small-input" name="small-input" /> <br />
-                                                                                <small><strong>Referral URL</strong> that we signed up for.</small><br />
-                                                                </p>
-                                                               
-                                                                <p>
-																		<%= form.label :description %>
-                                                                        <%= form.text_field(:description, :class => "text-input medium-input datepicker")%>
-                                                                </p>
-                                                               
-                                                                <p>
-                                                                        <%= form.label :tag_names, "Tags" %>
-                                                                        <%= form.text_field(:tag_names, :class => 'text-input large-input') %>
-                                                                       
-                                                                </p>
-                                                               
-                                                                <p>
-																	<%= form.label :favicon_path, "FavIcon URL" %>
-                                                                	<%= form.text_field(:favicon_path, :class => 'text-input large-input') %>
-                                                                     
-                                                                </p>
-                                                               
-                                                                <!-- <p>
-                                                                        <label>Mobile Support</label>
-                                                                        <input type="checkbox" name="checkbox1" /> Android <br />
-                                                                        <input type="checkbox" name="checkbox2" /> iPhone <br />
-                                                                        <input type="checkbox" name="checkbox2" /> Tablet <br />
-                                                                       
-                                                                </p>
-                                                               
-                                                                <p>
-                                                                        <label>Redirect Type</label>              
-                                                                        <select name="dropdown" class="small-input">
-                                                                                <option value="option1">Option 1</option>
-                                                                                <option value="option2">Option 2</option>
-                                                                                <option value="option3">Option 3</option>
-                                                                                <option value="option4">Option 4</option>
-                                                                        </select>
-                                                                </p>
-                                                               
-                                                                <p>
-                                                                        <label>Notes</label>
-                                                                        <textarea class="text-input textarea wysiwyg" id="textarea" name="textfield" cols="79" rows="15"></textarea>
-                                                                </p>
-                                                               
-                                                                <p>
-                                                                        <input class="button" type="submit" value="Submit" />
-                                                                </p> -->
-                                                               
-                                                        </fieldset>
-                                                       
-                                                        <div class="clear"></div><!-- End .clear -->
+<%= admin_errors(@domain)%>                                       <fieldset>
+<p>
+<label>Domain Names</label>
+<%= form.text_field(:url, :class => 'text-input small-input') %><br />
+<small><strong>Main URL</strong> that the site is based on. We will pull META from this.</small><br />
+<%= form.text_field(:mobile_url, :class => 'text-input small-input') %><br />
+<small><strong>Mobile URL</strong> is the URL that the users will see.</small><br />
+<input class="text-input small-input" type="text" id="small-input" name="small-input" /> <br />
+<small><strong>Referral URL</strong> that we signed up for.</small><br />
+</p>
+
+<p>
+<%= form.label :description %>
+<%= form.text_field(:description, :class => "text-input medium-input datepicker")%>
+</p>
+
+<p>
+<%= form.label :tag_names, "Tags" %>
+<%= form.text_field(:tag_names, :class => 'text-input large-input') %>
+
+</p>
+
+<p>
+<%= form.label :favicon_path, "FavIcon URL" %>
+<%= form.text_field(:favicon_path, :class => 'text-input large-input') %>
+
+</p>
+<!-- <p>
+<label>Mobile Support</label>
+<input type="checkbox" name="checkbox1" /> Android <br />
+<input type="checkbox" name="checkbox2" /> iPhone <br />
+<input type="checkbox" name="checkbox2" /> Tablet <br />
+
+</p>
+
+<p>
+<label>Redirect Type</label>              
+<select name="dropdown" class="small-input">
+<option value="option1">Option 1</option>
+<option value="option2">Option 2</option>
+<option value="option3">Option 3</option>
+<option value="option4">Option 4</option>
+</select>
+</p>
+
+<p>
+<label>Notes</label>
+<textarea class="text-input textarea wysiwyg" id="textarea" name="textfield" cols="79" rows="15"></textarea>
+</p>
+
+<p>
+<input class="button" type="submit" value="Submit" />
+</p> -->
+
+</fieldset>
+<div class="clear"></div><!-- End .clear -->

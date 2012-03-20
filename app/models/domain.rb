@@ -6,11 +6,13 @@ class Domain < ActiveRecord::Base
   
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings, :dependent => :destroy
-  
-  validates_presence_of :url
+  # We are not going to use this anymore because if its blank we are going to have the mobile url build it for use.
+  # validates_presence_of :url
   validates_presence_of :mobile_url
+  validates_uniqueness_of :mobile_url
+  validates_uniqueness_of :url
   
-  after_validation :clean_urls
+  before_validation :clean_urls
   before_save :get_data
   before_update :get_data
   after_save :assign_tags
@@ -76,8 +78,14 @@ class Domain < ActiveRecord::Base
     else
       http.use_ssl = false
     end
+    begin
+      response = http.request(Net::HTTP::Get.new(uri.request_uri))
+    rescue
+      # Something really hit the fan
+      return false
+    end
+      
     
-    response = http.request(Net::HTTP::Get.new(uri.request_uri))
     
     if limit != 0
       case response
@@ -96,25 +104,29 @@ class Domain < ActiveRecord::Base
   
   def get_data
     response = fetch
-    if response.header.code == "200"
-      doc = Nokogiri::HTML(response.body)
-      self.title = doc.title.to_s
-      content_description = doc.xpath("//meta[@name='description']/@content")
-      # Some people use the wrong capitlization
-      if content_description.blank?
-        content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
+    if response 
+      if response.header.code == "200"
+        doc = Nokogiri::HTML(response.body)
+        self.title = doc.title.to_s
+        content_description = doc.xpath("//meta[@name='description']/@content")
+        # Some people use the wrong capitlization
+        if content_description.blank?
+          content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
+        end
+        unless content_description.blank?
+          self.description = content_description.to_s
+        end
+        content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
+        if content_keywords.blank?
+          content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
+        end
+        self.tag_names = content_keywords
+        self.data_recived_on = Time.now
       end
-      unless content_description.blank?
-        self.description = content_description.to_s
-      end
-      content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
-      if content_keywords.blank?
-        content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
-      end
-      self.tag_names = content_keywords
-      self.data_recived_on = Time.now
+      self.code = response.header.code.to_i
+    else
+      self.code = 502
     end
-    self.code = response.header.code.to_i
   end
   
   def assign_tags
@@ -126,8 +138,18 @@ class Domain < ActiveRecord::Base
   end
   
   def clean_urls
-    self.url = build_url(self.url)
+    # You need to build the mobile url first
     self.mobile_url = build_url(self.mobile_url)
+    if self.url.blank?
+      self.url = build_url_from_mobile
+    else
+      self.url = build_url(self.url)
+    end
+  end
+  
+  def build_url_from_mobile
+    mobile_array = self.mobile_url.split("//")[1].split("/")[0].split(".")
+    build_url(mobile_array[mobile_array.length - 2].to_s + "." + mobile_array[mobile_array.length - 1].to_s)
   end
   
   # This will turn any string that is passed into into a url

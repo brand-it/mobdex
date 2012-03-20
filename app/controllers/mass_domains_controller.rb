@@ -9,7 +9,7 @@ class MassDomainsController < ApplicationController
   end
   def create
     @mass_domain = MassDomain.new(params[:mass_domain])
-    if @mass_domain.save
+    if @mass_domain.save!
       flash[:succss] = "Domains have been added to the site"
       redirect_to mass_domains_path
     else
@@ -27,8 +27,7 @@ class MassDomainsController < ApplicationController
   
   def update
     @mass_domain = MassDomain.find(params[:id])
-    params[:mass_domain][:added] = false
-    params[:mass_domain][:added_on] = nil
+    @mass_domain.reset_information
     if @mass_domain.update_attributes(params[:mass_domain])
       flash[:success] = "Bulk Domains has been updated"
       redirect_to mass_domains_path

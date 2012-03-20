@@ -1,7 +1,8 @@
-<% if object.errors.any? %> 
+<% if object.errors.any? || flash? %> 
 	<div class="notification error png_bg">
 		<div>
-
+			<%= flash_notifier %>
+			<% if object.errors.any? %>
 			  <%= content_tag(:div, :id => "error_explantion") do %>
 			    <%= content_tag(:h2, pluralize(object.errors.count, "error")) %>
 			    <%= content_tag(:ul) do %> 
@@ -10,7 +11,7 @@
 						<% end %>
 					<% end %>
 				<% end %>
-
+			<% end %>
 		</div>
 	</div>
 <% end %>
