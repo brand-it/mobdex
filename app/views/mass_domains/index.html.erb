@@ -15,70 +15,58 @@
 					</div>
 				</div>
 			<% end %>
-			
-			<table>	
-				<thead>
-					<tr>
-					   <th><input class="check-all" type="checkbox" /></th>
-					   <th>Domains</th>
-					   <th>Parse Type</th>
-					   <th>Created On</th>
-					   <th>Added On</th>
-					   <th>Updated On</th>
-					   <th>Action</th>	
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<td colspan="6">
-							<div class="bulk-actions align-left">
-								<select name="dropdown">
-									<option value="option1">Choose an action...</option>
-									<option value="option2">Edit</option>
-									<option value="option3">Delete</option>
-								</select>
-								<a class="button" href="#">Apply to selected</a>
-							</div>
+			<%= form_tag delete_selected_mass_domains_path do |f| %>
+				<table>	
+					<thead>
+						<tr>
+						   <th><input class="check-all" type="checkbox" /></th>
+						   <th>Domains</th>
+						   <th>Parse Type</th>
+						   <th>Created On</th>
+						   <th>Added On</th>
+						   <th>Updated On</th>
+						   <th>Action</th>	
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<td colspan="6">
+								<div class="bulk-actions align-left">
+									<%= submit_tag "Delete selected", :class => :button %>
+								</div>
+								<%= paginate @mass_domains %>
+								<div class="clear"></div>
+							</td>
+						</tr>
+					</tfoot>
+					<tbody>
+					<% for mass_domain in @mass_domains %>
+						<tr class="<%= cycle("alt-row", "") %>">
+							<td><%= check_box_tag "mass_domains[#{mass_domain.id}]" %></td>
+							<td><%= truncate mass_domain.domains, :length => 40 %></td>
+							<td><%= parse_type_to_words mass_domain.parse_type %></td>
+							<td><%= time_ago_in_words mass_domain.created_at %></td>
+							<td><%= time_ago_in_words mass_domain.added_on unless mass_domain.added_on.nil? %></td>
+							<td><%= time_ago_in_words mass_domain.updated_at%></td>
+							<td>
+								<!-- Icons -->
+								<%= link_to image_tag("pencil.png"), edit_mass_domain_path(mass_domain) %>
+								<%= link_to image_tag("cross.png"), mass_domain_path(mass_domain), :method => :delete, :confirm => "Are you sure you want to delete this domain?" %>
+								<% if mass_domain.error %>
+									<%= link_to image_tag("exclamation.png"), mass_domain_path(mass_domain) %>
+								<% elsif !mass_domain.added %>
+									<%= link_to image_tag("plus.png"), add_domains_mass_domain_path(mass_domain), :confirm => "Are you sure you want to add these domains to the site?"%>
+								<% else %>
+									<%= image_tag "tick_circle.png"%>
+								<% end %>
 							
-							<div class="pagination">
-								<a href="#" title="First Page">&laquo; First</a><a href="#" title="Previous Page">&laquo; Previous</a>
-								<a href="#" class="number" title="1">1</a>
-								<a href="#" class="number" title="2">2</a>
-								<a href="#" class="number current" title="3">3</a>
-								<a href="#" class="number" title="4">4</a>
-								<a href="#" title="Next Page">Next &raquo;</a><a href="#" title="Last Page">Last &raquo;</a>
-							</div> <!-- End .pagination -->
-							<div class="clear"></div>
-						</td>
-					</tr>
-				</tfoot>
-				<tbody>
-				<% for mass_domain in @mass_domains %>
-					<tr class="<%= cycle("alt-row", "") %>">
-						<td><input type="checkbox" /></td>
-						<td><%= truncate mass_domain.domains, :length => 40 %></td>
-						<td><%= parse_type_to_words mass_domain.parse_type %></td>
-						<td><%= time_ago_in_words mass_domain.created_at %></td>
-						<td><%= time_ago_in_words mass_domain.added_on unless mass_domain.added_on.nil? %></td>
-						<td><%= time_ago_in_words mass_domain.updated_at%></td>
-						<td>
-							<!-- Icons -->
-							<%= link_to image_tag("pencil.png"), edit_mass_domain_path(mass_domain) %>
-							<%= link_to image_tag("cross.png"), mass_domain_path(mass_domain), :method => :delete, :confirm => "Are you sure you want to delete this domain?" %>
-							<% if mass_domain.error %>
-								<%= link_to image_tag("exclamation.png"), mass_domain_path(mass_domain) %>
-							<% elsif !mass_domain.added %>
-								<%= link_to image_tag("plus.png"), add_domains_mass_domain_path(mass_domain), :confirm => "Are you sure you want to add these domains to the site?"%>
-							<% else %>
-								<%= image_tag "tick_circle.png"%>
-							<% end %>
-							
-						</td>
+							</td>
 
-					</tr>
-					<% end %>
-				</tbody>
-			</table>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+			<% end %>
 		</div> <!-- End #tab1 -->
 	</div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->

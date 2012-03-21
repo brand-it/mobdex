@@ -23,6 +23,9 @@ Mobdex::Application.routes.draw do
       get "error_message"
       get "add_domains"
     end
+    collection do
+      post "delete_selected"
+    end
   end
   
   match "/domains/search/:search" => "domains#index", :as => "search_domains"

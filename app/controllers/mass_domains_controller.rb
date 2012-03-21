@@ -19,7 +19,7 @@ class MassDomainsController < ApplicationController
   end
   
   def index
-    @mass_domains = MassDomain.all(:order => "updated_at DESC")
+    @mass_domains = MassDomain.order("updated_at DESC").page params[:page]
   end
   def edit
     @mass_domain = MassDomain.find(params[:id])
@@ -50,6 +50,15 @@ class MassDomainsController < ApplicationController
     mass_domain = MassDomain.find(params[:id])
     mass_domain.add_domains
     flash[:success] = "Domains have been added"
+    redirect_to mass_domains_path
+  end
+  
+  def delete_selected
+    for mass_domain in params[:mass_domains]
+      mass_domain = MassDomain.find(mass_domain[0])
+      mass_domain.delete
+    end
+    flash[:success] = "Mass Domains have been removed"
     redirect_to mass_domains_path
   end
 end
