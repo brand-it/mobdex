@@ -49,6 +49,11 @@ class AdminDomainsController < ApplicationController
     redirect_to admin_domains_path
   end
   
+  def update_domain
+    domain = Domain.find(params[:id])
+    domain.update_domain
+  end
+  
   def update_all
     @status = Domain.update_all_domains
     if @status

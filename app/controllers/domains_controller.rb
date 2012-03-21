@@ -18,7 +18,7 @@ class DomainsController < ApplicationController
   
   def get_data
     @domain = Domain.find(params[:id])
-    @fetch = @domain.fetch
+    @data = @domain.fetch_and_save
     render :layout => false
   end
 end

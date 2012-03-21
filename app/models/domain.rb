@@ -13,8 +13,6 @@ class Domain < ActiveRecord::Base
   validates_uniqueness_of :url
   
   before_validation :clean_urls
-  before_save :get_data
-  before_update :get_data
   after_save :assign_tags
   
   attr_writer :tag_names
@@ -63,6 +61,51 @@ class Domain < ActiveRecord::Base
     return success
   end
   
+  def update_domain
+    self.get_data
+    self.save!
+  end
+  
+  # this is used for the 
+  def fetch_and_save
+    response = self.get_data
+    if self.updated_at < Time.now - 12.hours
+      self.save!
+    end
+    return response
+  end
+  
+  protected
+  # Get data will pull all the information off the server
+  def get_data
+    response = fetch
+    if response 
+      if response.header.code == "200"
+        doc = Nokogiri::HTML(response.body)
+        self.title = doc.title.to_s
+        content_description = doc.xpath("//meta[@name='description']/@content")
+        # Some people use the wrong capitlization
+        if content_description.blank?
+          content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
+        end
+        unless content_description.blank?
+          self.description = content_description.to_s
+        end
+        content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
+        if content_keywords.blank?
+          content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
+        end
+        
+        self.tag_names += "," + content_keywords
+        self.data_recived_on = Time.now
+      end
+      self.code = response.header.code.to_i
+    else
+      self.code = 502
+    end
+    return response
+  end
+  
   def fetch(url_string = nil, limit = 10)
     # You should choose better exception.
     # raise ArgumentError, 'HTTP redirect too deep stoped at ' + url if limit == 0
@@ -97,34 +140,6 @@ class Domain < ActiveRecord::Base
   end
   
   private
-  
-  def get_data
-    response = fetch
-    if response 
-      if response.header.code == "200"
-        doc = Nokogiri::HTML(response.body)
-        self.title = doc.title.to_s
-        content_description = doc.xpath("//meta[@name='description']/@content")
-        # Some people use the wrong capitlization
-        if content_description.blank?
-          content_description = doc.xpath("/html/head/meta[@name='Description']/@content")
-        end
-        unless content_description.blank?
-          self.description = content_description.to_s
-        end
-        content_keywords = doc.xpath("//meta[@name='keywords']/@content").to_s
-        if content_keywords.blank?
-          content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
-        end
-        
-        self.tag_names += "," + content_keywords
-        self.data_recived_on = Time.now
-      end
-      self.code = response.header.code.to_i
-    else
-      self.code = 502
-    end
-  end
   
   def assign_tags
     if @tag_names

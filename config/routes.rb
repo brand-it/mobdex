@@ -9,6 +9,9 @@ Mobdex::Application.routes.draw do
   end
   
   resources :admin_domains do
+    member do
+      get "update_domain"
+    end
     collection do
       get "update_all"
     end
