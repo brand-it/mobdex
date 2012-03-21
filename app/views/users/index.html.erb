@@ -1,23 +1,69 @@
-<div id="information">
-	<table>
-		<tr>
-			<th>Access Level</th>
-			<th>Current Ip</th>
-			<th>Full Name</th>
-			<th>Email</th>
-			<th>Active<th>
-			<th></th>
-		</tr>
-		<% for user in @users %>
-			<tr>
-				<td><%= access_level_to_words(user.access_level) %></td>
-				<td><%= user.current_login_ip %></td>
-				<td><%= user.full_name %></td>
-				<td><%= user.email %></td>
-				<td><%= user.active %></td>
-				<td><%= link_to "Edit", edit_user_path(user) %></td>
-				<td><%= link_to "Send Activation", resend_activation_users_path(:user => {:email => user.email}), :method => :post, :confirm => "Are you sure?" %></td>
-			</tr>
-		<% end %>
-	</table>
-</div>
+<div class="content-box"><!-- Start Content Box -->
+	
+	<div class="content-box-header">
+		<h3>Users List</h3>
+		<div class="clear"></div>
+	</div> <!-- End .content-box-header -->
+	<div class="content-box-content">	
+		<div class="tab-content default-tab" id="tab1" style="display: block; "> <!-- This is the target div. id must match the href of this div's tab -->
+			
+			<% if flash? %>
+				<div class="notification attention png_bg">
+					<%= link_to image_tag("cross_grey_small.png"), "#", :class => :close %>
+					<div>
+						<%= flash_notifier %>
+					</div>
+				</div>
+			<% end %>
+			
+			<table>	
+				<thead>
+					<tr>
+					   <th><input class="check-all" type="checkbox" /></th>
+					   <th>Name</th>
+					   <th>Email</th>
+					   <th>Last Logged In</th>
+					   <th>Access Level</th>
+					   <th>Active</th>
+					   <th>Actions</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6">
+							<div class="bulk-actions align-left">
+								<select name="dropdown">
+									<option value="option1">Choose an action...</option>
+									<option value="option2">Edit</option>
+									<option value="option3">Delete</option>
+								</select>
+								<a class="button" href="#">Apply to selected</a>
+							</div>
+							<%= paginate @users %>
+							<div class="clear"></div>
+						</td>
+					</tr>
+				</tfoot>
+				<tbody>
+				<% for user in @users %>
+					<tr class="<%= cycle("alt-row", "") %>">
+						<td><input type="checkbox" /></td>
+						<td><%= user.full_name %></td>
+						<td><%= user.email %></td>
+						<td><%= user.last_login_at.strftime("%m/%d/%Y at %H:%M %p") unless user.last_login_at.nil? %></td>
+						<td><%= access_level_to_words user.access_level %></td>
+						<td><%= user.active %></td>
+						<td>
+							<!-- Icons -->
+							<%= link_to image_tag("pencil.png"), edit_user_path(user) %>
+							<%#= link_to image_tag("cross.png"), admin_domain_path(domain), :method => :delete %>
+							<%#= link_to image_tag("hammer_screwdriver.png"), update_domain_admin_domain_path(domain) %>
+						</td>
+
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div> <!-- End #tab1 -->
+	</div> <!-- End .content-box-content -->
+</div> <!-- End .content-box -->

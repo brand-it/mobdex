@@ -1,30 +1,32 @@
-<%= errors(@user) %>
-<div class="text_field">
-	<%= form.label :email %><br />
-	<%= form.text_field :email, :type => "email" %>
-</div>
-<div class="text_field">
-	<%= form.label :password, form.object.new_record? ? nil : "Change password" %><br />
-	<%= form.password_field :password %>
-</div>
-<div class="text_field">
-	<%= form.label :password_confirmation %><br />
-	<%= form.password_field :password_confirmation %>
-</div>
-<div class="text_field">
-	<%= form.label :first_name %><br />
-	<%= form.text_field :first_name %>
-</div>
-<div class="text_field">
-	<%= form.label :last_name %><br />
-	<%= form.text_field :last_name %>
-</div>
-<% if admin? %>
-	<div class="text_field">
-		<%= form.label :access_level %><br />
-		<%= form.select :access_level, access_level_types_for_select %>
-	</div>
-	<div class="checkbox">
-		<%= form.label :active %> <%= form.check_box :active %>
-	</div>
-<% end %>
+<%= admin_errors(@user) %>
+<fieldset>
+	<p>
+		<%= form.label :email %>
+		<%= form.text_field :email, :type => "email", :class => 'text-input small-input' %>
+	</p>
+	<p>
+		<%= form.label :password, form.object.new_record? ? nil : "Change password" %>
+		<%= form.password_field :password, :class => 'text-input small-input' %>
+	</p>
+	<p>
+		<%= form.label :password_confirmation %>
+		<%= form.password_field :password_confirmation, :class => 'text-input small-input' %>
+	</p>
+	<p>
+		<%= form.label :first_name %>
+		<%= form.text_field :first_name, :class => 'text-input small-input' %>
+	</p>
+	<p>
+		<%= form.label :last_name %>
+		<%= form.text_field :last_name, :class => 'text-input small-input' %>
+	</p>
+	<% if admin? %>
+		<p>
+			<%= form.label :access_level %>
+			<%= form.select :access_level, access_level_types_for_select, :class => 'text-input small-input' %>
+		</p>
+		<p>
+			<small><strong>Activate</strong> this account.</small><%= form.check_box :active %>
+		</p>
+	<% end %>
+</fieldset>

@@ -14,6 +14,7 @@ Mobdex::Application.routes.draw do
     end
     collection do
       get "update_all"
+      post "delete_selected"
     end
   end
   

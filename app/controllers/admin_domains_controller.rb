@@ -49,9 +49,18 @@ class AdminDomainsController < ApplicationController
     redirect_to admin_domains_path
   end
   
+  def delete_selected
+    for domain in params[:domains]
+      domain = Domain.find(domain[0])
+      domain.delete
+    end
+    redirect_to admin_domains_path
+  end
+  
   def update_domain
     domain = Domain.find(params[:id])
     domain.update_domain
+    redirect_to admin_domains_path
   end
   
   def update_all

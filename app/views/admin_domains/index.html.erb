@@ -1,3 +1,5 @@
+
+
 <div class="content-box"><!-- Start Content Box -->
 	
 	<div class="content-box-header">
@@ -15,57 +17,58 @@
 					</div>
 				</div>
 			<% end %>
-			
-			<table>	
-				<thead>
-					<tr>
-					   <th><input class="check-all" type="checkbox" /></th>
-					   <th>Domain</th>
-					   <th>Last Feedback</th>
-					   <th>Tags</th>
-					   <th>Last Modified</th>
-					   <th>Status Code</th>
-					   <th>Action</th>	
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<td colspan="6">
-							<div class="bulk-actions align-left">
-								<select name="dropdown">
-									<option value="option1">Choose an action...</option>
-									<option value="option2">Edit</option>
-									<option value="option3">Delete</option>
-								</select>
-								<a class="button" href="#">Apply to selected</a>
-							</div>
-							<%= paginate @domains %>
-							<div class="clear"></div>
-						</td>
-					</tr>
-				</tfoot>
-				<tbody>
-				<% for domain in @domains %>
-					<tr class="<%= cycle("alt-row", "") %>">
-						<td><input type="checkbox" /></td>
-						<td><%= truncate domain.title, :length => 40 %></td>
-						<td><a href="#" title="title">No feedback</a></td>
-						<td><%= domain.tags.limit(3).map{|tag| truncate(tag.name, :length => 12, :separator => ' ')}.join(", ") %></td>
-						<td><%= time_ago_in_words domain.updated_at unless domain.updated_at.nil? %></td>
-						<td>
-							<%= domain.code %>
-						</td>
-						<td>
-							<!-- Icons -->
-							<%= link_to image_tag("pencil.png"), edit_admin_domain_path(domain) %>
-							<%= link_to image_tag("cross.png"), admin_domain_path(domain), :method => :delete %>
-							<%= link_to image_tag("hammer_screwdriver.png"), update_domain_admin_domain_path(domain) %>
-						</td>
-
-					</tr>
-					<% end %>
-				</tbody>
-			</table>
+			<%= form_tag delete_selected_admin_domains_path do |f| %>
+				<table>	
+					<thead>
+						<tr>
+						   <th><input class="check-all" type="checkbox" /></th>
+						   <th>Domain</th>
+						   <th>Last Feedback</th>
+						   <th>Tags</th>
+						   <th>Last Modified</th>
+						   <th>Status Code</th>
+						   <th>Action</th>	
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<td colspan="6">
+								<div class="bulk-actions align-left">
+									<!-- <select name="dropdown">
+											<option value="option1">Choose an action...</option>
+											<option value="option2">Edit</option>
+											<option value="option3">Delete</option>
+										</select> -->
+									<%= submit_tag "Delete selected", :class => :button %>
+									<!-- <a class="button" href="#">Apply to selected</a> -->
+								</div>
+								<%= paginate @domains %>
+								<div class="clear"></div>
+							</td>
+						</tr>
+					</tfoot>
+					<tbody>
+						<% @domains.each do |domain| %>
+							<tr class="<%= cycle("alt-row", "") %>">
+								<td><%= check_box_tag "domains[#{domain.id}]" %></td>
+								<td><%= truncate domain.title, :length => 40 %></td>
+								<td><a href="#" title="title">No feedback</a></td>
+								<td><%= domain.tags.limit(3).map{|tag| truncate(tag.name, :length => 12, :separator => ' ')}.join(", ") %></td>
+								<td><%= time_ago_in_words domain.updated_at unless domain.updated_at.nil? %></td>
+								<td>
+									<%= domain.code %>
+								</td>
+								<td>
+									<!-- Icons -->
+									<%= link_to image_tag("pencil.png"), edit_admin_domain_path(domain) %>
+									<%= link_to image_tag("cross.png"), admin_domain_path(domain), :method => :delete %>
+									<%= link_to image_tag("hammer_screwdriver.png"), update_domain_admin_domain_path(domain) %>
+								</td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			<% end %>
 		</div> <!-- End #tab1 -->
 	</div> <!-- End .content-box-content -->
 </div> <!-- End .content-box -->

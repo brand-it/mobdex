@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
+  # before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
-  before_filter :admin_authorized, :only =>  :index
+  before_filter :admin_authorized, :only =>  [:index, :create, :new]
+  layout "admin"
   
   def index
-    @users = User.all
+    @users = User.order(:last_name).page params[:page]
+    
     store_location
   end
   

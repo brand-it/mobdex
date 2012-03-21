@@ -96,7 +96,7 @@ class Domain < ActiveRecord::Base
           content_keywords = doc.xpath("//meta[@name='Keywords']/@content").to_s
         end
         
-        self.tag_names += "," + content_keywords
+        self.tag_names = content_keywords unless content_keywords.blank?
         self.data_recived_on = Time.now
       end
       self.code = response.header.code.to_i

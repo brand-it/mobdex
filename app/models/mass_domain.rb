@@ -15,6 +15,8 @@ class MassDomain < ActiveRecord::Base
       new_domain = Domain.new(:mobile_url => domain.to_s)
       unless new_domain.save
         errors += new_domain.errors.full_messages.map{|msg| new_domain.mobile_url + " " + msg.to_s}.join("</br>")
+      else
+        new_domain.update_domain
       end
     end
     if errors.blank?
