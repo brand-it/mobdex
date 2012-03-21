@@ -38,17 +38,15 @@ class Domain < ActiveRecord::Base
   end
    
   # This is the search system every search should use this.
-  def self.search(search) 
+  def self.search(search, page_number) 
     norsults = false
     unless search.nil?
       search = scrub_search(search)
-      domains = self.find(:all,:conditions => search, :include => :tags)
-    else
-      domains = self.all
+      domains = self.page(page_number).where(search).includes(:tags)
     end
     if domains.blank?
-      domains = self.all
-      noresults = true
+      domains = self.order(:title).page(page_number)
+      noresults = true unless search.nil?
     end
     return domains, noresults
   end
@@ -84,8 +82,6 @@ class Domain < ActiveRecord::Base
       # Something really hit the fan
       return false
     end
-      
-    
     
     if limit != 0
       case response
