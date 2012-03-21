@@ -51,7 +51,7 @@
 						<% @domains.each do |domain| %>
 							<tr class="<%= cycle("alt-row", "") %>">
 								<td><%= check_box_tag "domains[#{domain.id}]" %></td>
-								<td><%= truncate domain.title, :length => 40 %></td>
+								<td><%= link_to truncate(domain.title, :length => 40), domain_path(domain) %></td>
 								<td><a href="#" title="title">No feedback</a></td>
 								<td><%= domain.tags.limit(3).map{|tag| truncate(tag.name, :length => 12, :separator => ' ')}.join(", ") %></td>
 								<td><%= time_ago_in_words domain.updated_at unless domain.updated_at.nil? %></td>
