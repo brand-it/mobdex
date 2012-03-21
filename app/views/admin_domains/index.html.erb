@@ -56,7 +56,7 @@
 								<td><%= domain.tags.limit(3).map{|tag| truncate(tag.name, :length => 12, :separator => ' ')}.join(", ") %></td>
 								<td><%= time_ago_in_words domain.updated_at unless domain.updated_at.nil? %></td>
 								<td>
-									<%= domain.code %>
+									<%= http_code_to_color domain.code %>
 								</td>
 								<td>
 									<!-- Icons -->
