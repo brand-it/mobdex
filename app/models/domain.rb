@@ -37,7 +37,9 @@ class Domain < ActiveRecord::Base
   end
    
   # This is the search system every search should use this.
-  def self.search(search, page_number) 
+  def self.search(search, page_number, request) 
+    Search.store_query(search, request)
+    
     norsults = false
     unless search.nil?
       search = scrub_search(search)

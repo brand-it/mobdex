@@ -1,4 +1,5 @@
 <%= render "search" %>
+<%= debug @searches %>
 <section class="row content">
 	<% for domain in @domains %>
 	    	<div class="span4 offset4 well">
@@ -16,6 +17,5 @@
 
 </section>
 <div style="text-align: center; width: 100%">
-	
 	<%= paginate @domains %>
 </div>
