@@ -4,6 +4,8 @@ class Domain < ActiveRecord::Base
   require "net/http"
   require "uri"
   
+  scope :success, where(:code => "200")
+  
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings, :dependent => :destroy
   # We are not going to use this anymore because if its blank we are going to have the mobile url build it for use.
@@ -43,10 +45,10 @@ class Domain < ActiveRecord::Base
     norsults = false
     unless search.nil?
       search = scrub_search(search)
-      domains = self.page(page_number).where(search).includes(:tags)
+      domains = self.page(page_number).success.where(search).includes(:tags)
     end
     if domains.blank?
-      domains = self.order(:title).page(page_number)
+      domains = self.order(:title).page(page_number).success
       noresults = true unless search.nil?
     end
     return domains, noresults

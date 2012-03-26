@@ -9,14 +9,7 @@
 	
 	<div class="content-box-content">	
 		<div class="tab-content default-tab" id="tab1" style="display: block; "> <!-- This is the target div. id must match the href of this div's tab -->
-			<% if flash? %>
-				<div class="notification attention png_bg">
-					<a href="#" class="close"><%= image_tag "cross_grey_small.png" %></a>
-					<div>
-						<%= flash_notifier %>
-					</div>
-				</div>
-			<% end %>
+			<%= flash_notifier_admin %>
 			<%= form_tag delete_selected_admin_domains_path do |f| %>
 				<table>	
 					<thead>
@@ -51,7 +44,7 @@
 						<% @domains.each do |domain| %>
 							<tr class="<%= cycle("alt-row", "") %>">
 								<td><%= check_box_tag "domains[#{domain.id}]" %></td>
-								<td><%= link_to truncate(domain.title, :length => 40), domain_path(domain) %></td>
+								<td><%= link_to truncate(domain.url, :length => 40), domain.url %></td>
 								<td><a href="#" title="title">No feedback</a></td>
 								<td><%= domain.tags.limit(3).map{|tag| truncate(tag.name, :length => 12, :separator => ' ')}.join(", ") %></td>
 								<td><%= time_ago_in_words domain.updated_at unless domain.updated_at.nil? %></td>
