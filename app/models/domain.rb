@@ -13,6 +13,7 @@ class Domain < ActiveRecord::Base
   validates_uniqueness_of :url
   
   before_validation :clean_urls
+  before_create :get_data
   after_save :assign_tags
   
   attr_writer :tag_names

@@ -3,10 +3,11 @@
 <fieldset>
 	<p>
 	<label>Domain Names</label>
+
+	<%= form.text_field(:mobile_url, :class => 'text-input small-input') %><br />
+	<small><strong>Mobile URL</strong> if there is no mobile url just use the best you can.</small><br />
 	<%= form.text_field(:url, :class => 'text-input small-input') %><br />
 	<small><strong>Main URL</strong> that the site is based on. We will pull META from this.</small><br />
-	<%= form.text_field(:mobile_url, :class => 'text-input small-input') %><br />
-	<small><strong>Mobile URL</strong> is the URL that the users will see.</small><br />
 	<input class="text-input small-input" type="text" id="small-input" name="small-input" /> <br />
 	<small><strong>Referral URL</strong> that we signed up for.</small><br />
 	</p>
