@@ -59,7 +59,7 @@ class AdminDomainsController < ApplicationController
   
   def update_domain
     domain = Domain.find(params[:id])
-    domain.update_domain
+    domain.fetch_and_save
     redirect_to admin_domains_path
   end
   

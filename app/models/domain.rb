@@ -50,23 +50,6 @@ class Domain < ActiveRecord::Base
     return domains, noresults
   end
   
-  # Admin should only call this method check make sure of this in controller
-  def self.update_all_domains
-    domains = self.all
-    success = true
-    for domain in domains
-      unless domain.save
-        success = false
-      end
-    end
-    return success
-  end
-  
-  def update_domain
-    self.get_data
-    self.save!
-  end
-  
   # this is used for the 
   def fetch_and_save
     html_data = self.get_data

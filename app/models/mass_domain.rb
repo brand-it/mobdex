@@ -16,7 +16,7 @@ class MassDomain < ActiveRecord::Base
       unless new_domain.save
         errors += new_domain.errors.full_messages.map{|msg| new_domain.mobile_url + " " + msg.to_s}.join("</br>")
       else
-        new_domain.update_domain
+        new_domain.fetch_and_save
       end
     end
     if errors.blank?
