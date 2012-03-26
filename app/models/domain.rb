@@ -69,11 +69,11 @@ class Domain < ActiveRecord::Base
   
   # this is used for the 
   def fetch_and_save
-    response = self.get_data
+    html_data = self.get_data
     if self.updated_at < Time.now - 12.hours
       self.save!
     end
-    return response
+    return html_data
   end
   
   protected
