@@ -9,6 +9,7 @@ Mobdex::Application.routes.draw do
   end
   
   resources :admin_domains do
+    resources :feedbacks
     member do
       get "update_domain"
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120322044451) do
+ActiveRecord::Schema.define(:version => 20120327001824) do
 
   create_table "domains", :force => true do |t|
     t.text      "url"
@@ -23,6 +23,19 @@ ActiveRecord::Schema.define(:version => 20120322044451) do
     t.timestamp "create_at"
     t.timestamp "updated_at"
     t.integer   "code"
+  end
+
+  create_table "feebacks", :force => true do |t|
+    t.text     "details"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "feedbacks", :force => true do |t|
+    t.text     "note"
+    t.integer  "domain_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "mass_domains", :force => true do |t|
@@ -37,10 +50,10 @@ ActiveRecord::Schema.define(:version => 20120322044451) do
   end
 
   create_table "searches", :force => true do |t|
-    t.string   "query"
-    t.string   "request_ip"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string    "query"
+    t.string    "request_ip"
+    t.timestamp "created_at", :null => false
+    t.timestamp "updated_at", :null => false
   end
 
   create_table "taggings", :force => true do |t|

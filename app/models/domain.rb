@@ -8,6 +8,7 @@ class Domain < ActiveRecord::Base
   
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings, :dependent => :destroy
+  has_many :feedbacks
   # We are not going to use this anymore because if its blank we are going to have the mobile url build it for use.
   # validates_presence_of :url
   validates_presence_of :mobile_url

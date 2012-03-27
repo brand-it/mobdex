@@ -45,7 +45,12 @@
 							<tr class="<%= cycle("alt-row", "") %>">
 								<td><%= check_box_tag "domains[#{domain.id}]" %></td>
 								<td><%= link_to truncate(domain.url, :length => 40), domain.url %></td>
-								<td><a href="#" title="title">No feedback</a></td>
+								<% unless domain.feedbacks.blank? %>
+									<td><%= link_to "Read Feedback", admin_domain_feedbacks_path(domain) %></td>
+								<% else %>
+									<td><%= link_to "No Feedback", new_admin_domain_feedback_path(domain) %></td>
+								<% end %>
+								
 								<td><%= domain.tags.limit(3).map{|tag| truncate(tag.name, :length => 12, :separator => ' ')}.join(", ") %></td>
 								<td><%= time_ago_in_words domain.updated_at unless domain.updated_at.nil? %></td>
 								<td>

@@ -5,6 +5,9 @@ gem 'rails', '3.2.2'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
+# Formats the contents of submit form
+gem "RedCloth"
+
 # XML/HTML parsing system
 gem "nokogiri"
 

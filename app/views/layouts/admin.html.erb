@@ -39,7 +39,7 @@
 				</li>
 
 				<li> 
-					<%= link_to "Single Domains", domains_path, :class => ["nav-top-item", current_view(params, :controller => :admin_domains, :result => :current)], :style => "padding-right: 15px;" %>
+					<%= link_to "Single Domains", domains_path, :class => ["nav-top-item", current_view(params, :controller => [:admin_domains, :feedbacks], :result => :current)], :style => "padding-right: 15px;" %>
 					<ul style="display: block; ">
 						<li><%= link_to "Add a Domain", new_admin_domain_path, :class => current_view(params, :controller => :admin_domains, :action => :new, :result => :current) %></li>
 						<li><%= link_to "Edit a Domain", admin_domains_path, :class => current_view(params, :controller => :admin_domains, :action => :index, :result => :current)%></li>
@@ -58,12 +58,19 @@
 				</li>
 
 				<li>
-					<a href="#" class="nav-top-item" style="padding-right: 15px; ">
-						Feedback
-					</a>
+					<%= link_to "Feedback", "#", :class => ["nav-top-item", current_view(params, :controller => :feedbacks, :result => :current)], :style => "padding-right: 15px;" %>
 					<ul style="display: none; ">
-						<li><a href="open_feedback.html">View Open Feedback (#)</a></li>
-						<li><a href="closed_feedback.html">View Closed Feedback</a></li>
+						<% if @domain && current_view(params, :controller => :feedbacks )%>
+							<li>
+								<%= link_to "Create Feedback", new_admin_domain_feedback_path(@domain), :class => current_view(params, :controller => :feedbacks, :action => :new, :result => :current) %>
+							</li>
+							<li>
+								<%= link_to "Feedbacks", admin_domain_feedbacks_path(@domain) %>
+							</li>
+						<% end %>
+						
+						<!-- <li><a href="open_feedback.html">View Open Feedback (#)</a></li>
+						<li><a href="closed_feedback.html">View Closed Feedback</a></li> -->
 					</ul>
 				</li>
 

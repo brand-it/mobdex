@@ -37,6 +37,10 @@ module ApplicationHelper
   	return notice
   end
   
+  def truncate_short(text)
+    truncate(text, :length => 20)
+  end
+  
   # A nice way to help the views tell if you are on the current page you want to be on.
   def current_view(params, options = {})
     valid = true
@@ -65,6 +69,18 @@ module ApplicationHelper
       return valid
     elsif valid
       return results
+    end
+  end
+  
+  # There is a built in method but it has some problems so we are going use one I built
+  def textilize(text, *options)
+    options ||= [:hard_breaks]
+
+    if text.blank?
+      ""
+    else
+      textilized = RedCloth.new(text, options)
+      textilized.to_html.html_safe
     end
   end
 end
