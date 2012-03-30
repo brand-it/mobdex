@@ -1,0 +1,30 @@
+<% content_for :sublogo do %>
+	<h5>MOBILE SEARCH MADE EASY.</h5>
+<% end %>
+
+
+
+
+<section class="row">
+	<div class="span4 offset4">
+		<p class="about">Sed at mauris non est vulputate commodo. Suspendisse tincidunt, risus ac rutrum venenatis, lacus dolor auctor est, ac elementum nunc purus ut arcu. Curabitur hendrerit suscipit.</p>
+
+	</div>
+</section>
+
+<section class="row content">
+	<div class="span4 offset4">
+		<%= flash_notifier %>
+		<%= form_for(@beta_signup, :url => beta_signup_path) do |f| %>
+			<%= image_tag "email.png", :class => :emailimg %>
+			<%= f.text_field :email, :class => "input-email", :placeholder => "Enter email..." %>
+			<!-- <input id="emaillegdend" class="input-email" type="email" name="email" value="Enter email.."> -->
+			<%= f.submit "Signup", :class => ["btn", "pull-left"] %>
+		<% end %>
+		<div class="social-container">
+			<h5>SHARE</h5>
+			<a href="#"><%= image_tag "twitter.png", :class => :social %></a>
+			<a href="#"><%= image_tag "facebook.png", :class => :social %></a>
+		</div>
+	</div>
+</section>

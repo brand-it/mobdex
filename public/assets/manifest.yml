@@ -15,7 +15,9 @@ comment_48.png: comment_48-eb5e92840a6fce9aad07afd43b73a323.png
 cross.png: cross-4b130463e1aacdcb07a0248c299edea0.png
 cross_circle.png: cross_circle-cf8fbfc5abd13938e46f84692ec9ed2c.png
 cross_grey_small.png: cross_grey_small-97e664b9c3e3d1859e54c77467ff1ca9.png
+email.png: email-9f5d113831985d4fe4c3800f5512172b.png
 exclamation.png: exclamation-9bc44c13513a80cf322874699928354a.png
+facebook.png: facebook-d053260848e94205b7b28343431d4ca5.png
 glyphicons-halflings-white.png: glyphicons-halflings-white-4fbb6a0b9b4e61912f486ac494a858f1.png
 glyphicons-halflings.png: glyphicons-halflings-2ed0cba6eca0f44737ab78f1e58bc11e.png
 hammer_screwdriver.png: hammer_screwdriver-6f22c76c63c026d35c000ae06d839012.png
@@ -30,6 +32,7 @@ pencil_48.png: pencil_48-ec6f348725f7bbe5b1bce39434505556.png
 plus.png: plus-1a64d6c0a52b4468d522df1e82229f3a.png
 search.png: search-b6e24bb7d5ef033b445fcafdacfed2a1.png
 tick_circle.png: tick_circle-803c471c079e8f9ca20df7237b365ab9.png
+twitter.png: twitter-d34e43763986f421088b89f82fdac4f5.png
 application.js: application-595fae898c1183ffb356e997cc538566.js
 back/application.css: back/application-c25bdf58a793cc4d9dcab56ea82a58cc.css
-front/application.css: front/application-144f90779f08dfb77faa5cddc3b85357.css
+front/application.css: front/application-558431ef9d6c9539cdf08678d8a6a51a.css

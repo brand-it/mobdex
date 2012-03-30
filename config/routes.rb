@@ -49,11 +49,11 @@ Mobdex::Application.routes.draw do
   # Acctivation Account url
   match "/activate/:perishable_token" => "users#activate", :as => "activate_user"
   
+  resource :beta_signup
+  
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
-
-  match "welcome" => "landing#welcome", :as => :welcome
   
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase

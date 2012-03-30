@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
     users.collect {|u| [ u.full_name, u.id ] }
   end
 
+  # This is to prevent access level that is to high you have to use this correctly
   def self.new_user_safe_mode(params)
     user = self.new(params)
     user.access_level = 1

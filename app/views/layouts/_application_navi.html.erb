@@ -6,17 +6,23 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<%= link_to "Mobdex", root_path, :class => :brand %>
+			<%= link_to "Pew2", root_path, :class => :brand %>
 			<div class="nav-collapse">
 				<ul class="nav" id="mobile">
 					<%= content_tag(:li, 
 						link_to("Home", domains_path), 
 						:class => current_view(params, :controller => :domains, :action => :index, :result => :active))
 					%>
-					<%= content_tag(:li, 
+					<% unless logged_in? %>
+						<%= content_tag(:li, 
 						link_to("Login", login_path), 
-						:class => current_view(params, :controller => :user_session, :result => :active)
-					) unless logged_in? %>
+						:class => current_view(params, :controller => :user_session, :result => :active)) %>
+						
+						<%= content_tag(:li, 
+						link_to("Beta Signup", 
+						new_beta_signup_path), :class => current_view(params, :controller => :beta_signup, :result => :active)) %>
+					<% end %>
+					
 					<%= content_tag(:li, link_to("Logout " + current_user.first_name, logout_path)) if logged_in? %>
 					<%= content_tag(:li, link_to("Admin Panel", admin_domains_path)) if admin? %>
 				</ul>

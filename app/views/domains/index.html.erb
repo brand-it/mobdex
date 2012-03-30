@@ -2,7 +2,7 @@
 <section class="row content">
 	<% for domain in @domains %>
 	    	<div class="span4 offset4 well">
-	    		<%= image_tag domain.favicon_url %>
+	    		<%= image_tag domain.favicon_url, :class => :favicon %>
 	    		<h2><%= link_to truncate(domain.title, :length => 50, :separator => ' '), domain_path(domain) %></h2>
 	    		<p>
 					<%= truncate(domain.description, :length => 150, :separator => ' ') %>
