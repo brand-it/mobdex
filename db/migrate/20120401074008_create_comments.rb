@@ -7,6 +7,6 @@ class CreateComments < ActiveRecord::Migration
       t.timestamps
     end
     
-    add_column :feedbacks, :created_by, :interger, :default => nil
+    add_column :feedbacks, :created_by, :integer, :default => nil
   end
 end
