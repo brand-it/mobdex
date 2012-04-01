@@ -5,7 +5,6 @@ class Domain < ActiveRecord::Base
   require "uri"
   
   scope :success, where(:code => "200")
-  
   has_many :taggings, :dependent => :destroy
   has_many :tags, :through => :taggings, :dependent => :destroy
   has_many :feedbacks

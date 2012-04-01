@@ -20,7 +20,7 @@
 						
 						<%= content_tag(:li, 
 						link_to("Beta Signup", 
-						new_beta_signup_path), :class => current_view(params, :controller => :beta_signup, :result => :active)) %>
+						new_beta_signup_path), :class => current_view(params, :controller => :beta_signups, :result => :active)) %>
 					<% end %>
 					
 					<%= content_tag(:li, link_to("Logout " + current_user.first_name, logout_path)) if logged_in? %>
