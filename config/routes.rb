@@ -53,7 +53,7 @@ Mobdex::Application.routes.draw do
   # Acctivation Account url
   match "/activate/:perishable_token" => "users#activate", :as => "activate_user"
   
-  resource :beta_signup
+  resources :beta_signups
   
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

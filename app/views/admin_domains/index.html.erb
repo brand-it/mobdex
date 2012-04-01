@@ -44,7 +44,7 @@
 						<% @domains.each do |domain| %>
 							<tr class="<%= cycle("alt-row", "") %>">
 								<td><%= check_box_tag "domains[#{domain.id}]" %></td>
-								<td><%= link_to truncate(domain.url, :length => 40), domain.url %></td>
+								<td><%= link_to truncate(domain.url, :length => 40), domain_path(domain) %></td>
 								<% unless domain.feedbacks.blank? %>
 									<td><%= link_to "Read Feedback", admin_domain_feedbacks_path(domain) %></td>
 								<% else %>

@@ -31,6 +31,13 @@
 				</li>
 				
 				<li> 
+					<%= link_to "Beta Signups", beta_signups_path, :class => ["nav-top-item", current_view(params, :controller => :beta_signups, :result => :current)], :style => "padding-right: 15px;" %>
+					<ul style="display: block; ">
+						<li><%= link_to "Signups", beta_signups_path, :class => current_view(params, :controller => :beta_signups, :action => :index, :result => :current) %></li>
+					</ul>
+				</li>
+				
+				<li> 
 					<%= link_to "Users", users_path, :class => ["nav-top-item", current_view(params, :controller => :users, :result => :current)], :style => "padding-right: 15px;" %>
 					<ul style="display: block; ">
 						<li><%= link_to "Users List", users_path, :class => current_view(params, :controller => :users, :action => :index, :result => :current) %></li>
