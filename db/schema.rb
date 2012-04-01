@@ -11,13 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120330070113) do
+ActiveRecord::Schema.define(:version => 20120401074008) do
 
   create_table "beta_signups", :force => true do |t|
-    t.string   "email"
-    t.boolean  "excepted",   :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.string    "email"
+    t.boolean   "excepted",   :default => false
+    t.timestamp "created_at",                    :null => false
+    t.timestamp "updated_at",                    :null => false
+  end
+
+  create_table "comments", :force => true do |t|
+    t.text     "note"
+    t.integer  "feedback_id"
+    t.integer  "created_by"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "domains", :force => true do |t|
@@ -43,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20120330070113) do
     t.integer  "domain_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "created_by"
   end
 
   create_table "mass_domains", :force => true do |t|

@@ -1,7 +1,6 @@
 class FeedbacksController < ApplicationController
   layout "admin"
   
-  
   def show
     @domain = Domain.find(params[:admin_domain_id])
     @feedback = Feedback.find(params[:id])
@@ -10,6 +9,7 @@ class FeedbacksController < ApplicationController
   def index
     @domain = Domain.find(params[:admin_domain_id])
     @feedbacks = @domain.feedbacks
+    @comment = Comment.new
   end
   def new
     @domain = Domain.find(params[:admin_domain_id])
@@ -19,6 +19,8 @@ class FeedbacksController < ApplicationController
   def create
     @domain = Domain.find(params[:admin_domain_id])
     @feedback = @domain.feedbacks.build(params[:feedback])
+    
+    @domain.feedback_current_user_comment
     if @feedback.save
       flash[:success] = "Added new feedback to the domain"
       redirect_to admin_domain_feedbacks_path(@domain)

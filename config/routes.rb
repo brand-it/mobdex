@@ -19,6 +19,10 @@ Mobdex::Application.routes.draw do
     end
   end
   
+  resources :feedbacks do
+    resources :comments
+  end
+  
   resources :mass_domains do
     member do
       get "error_message"
