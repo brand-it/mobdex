@@ -5,56 +5,12 @@
 	</div> <!-- End .content-box-header -->
 	<div class="content-box-content">
 		<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
-			
-			<table>
-				
-				<thead>
-					<tr>
-					   <th><input class="check-all" type="checkbox" /></th>
-					
-					   <th>Feedback</th>
-					   <th>Date</th>
-					</tr>
-					
-				</thead>
-			 
-				<tfoot>
-					<tr>
-						<td colspan="6">
-							<div class="bulk-actions align-left">
-								<!-- <select name="dropdown">
-									<option value="option1">Choose an action...</option>
-									<option value="option2">Edit</option>
-									<option value="option3">Delete</option>
-								</select>
-								<a class="button" href="#">Apply to selected</a> -->
-							</div>
-							
-							<div class="pagination">
-								<%= paginate @feedbacks %>
-							</div> <!-- End .pagination -->
-							<div class="clear"></div>
-						</td>
-					</tr>
-				</tfoot>
-			 
-				<tbody>
-					<% @feedbacks.each do |feedback| %>
-						<tr>
-							<td><input type="checkbox" /></td>
-							<td><%= link_to truncate(feedback.note, :length => 40), admin_domain_feedback_path(@domain, feedback)  %></td>
-							<td><%= time_ago_in_words feedback.created_at %></td>
-							<td>
-								<!-- Icons -->
-								 <!-- <a href="#" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
-								 <a href="#" title="Delete"><img src="resources/images/icons/cross.png" alt="Delete" /></a> 
-								 <a href="#" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a> -->
-							</td>
-						</tr>
-					<% end %>
-				</tbody>
-				
-			</table>
+			<% @feedbacks.each do |feedback| %>
+				<p>This note was created <%= time_ago_in_words feedback.created_at %></p>
+				<div style="width: 95%; height: 200px; overflow-x:hidden; overflow-y:scroll; background: #F2F2F2; padding: 15px; font-family: courier; ">
+					<%= textilize feedback.note %>
+				</div>
+			<% end %>
 
 		</div> <!-- End #tab1 -->    
 	</div> <!-- End .content-box-content -->

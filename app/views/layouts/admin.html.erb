@@ -65,7 +65,7 @@
 								<%= link_to "Create Feedback", new_admin_domain_feedback_path(@domain), :class => current_view(params, :controller => :feedbacks, :action => :new, :result => :current) %>
 							</li>
 							<li>
-								<%= link_to "Feedbacks", admin_domain_feedbacks_path(@domain) %>
+								<%= link_to "Feedbacks", admin_domain_feedbacks_path(@domain), :class => current_view(params, :controller => :feedbacks, :action => :index, :result => :current) %>
 							</li>
 						<% end %>
 						
