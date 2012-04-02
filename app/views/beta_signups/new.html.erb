@@ -17,7 +17,7 @@
 		<%= flash_notifier %>
 		<%= form_for(@beta_signup) do |f| %>
 			<%= image_tag "email.png", :class => :emailimg %>
-			<%= f.text_field :email, :class => "input-email", :placeholder => "Enter email..." %>
+			<%= f.text_field :email, :class => "input-email", :placeholder => "Enter email...", :required => true %>
 			<!-- <input id="emaillegdend" class="input-email" type="email" name="email" value="Enter email.."> -->
 			<%= f.submit "Signup", :class => ["btn", "pull-left"] %>
 		<% end %>
