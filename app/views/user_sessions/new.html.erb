@@ -10,12 +10,13 @@
 		<% end %>
 		<p>
 			<%= f.label(:email, "Email", :hide_errors => true) %>
-			<%= f.text_field :email, :class => "text-input" %>
+			<%= f.text_field :email, :class => "text-input", :id => :username, :placeholder => "Email", :required => true %>
+			<!-- <input id="username" type="text" placeholder="Username" autofocus="" required=""> -->
 		</p>
 		<div class="clear"></div>
 		<p>
 			<%= f.label(:password, "password", :hide_errors => true) %>
-			<%= f.password_field :password, :class => "text-input" %>
+			<%= f.password_field :password, :class => "text-input",:placeholder => "password",  :required => true %>
 		</p>
 		<div class="clear"></div>
 		<p id="remember-password" style="font-size: 12px;">
@@ -26,4 +27,5 @@
 			<%= f.submit "Sign Up", :class => :button %>
 		</p>
 	<% end %>
+	
 </div> <!-- End #login-content -->

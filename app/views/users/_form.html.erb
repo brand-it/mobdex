@@ -3,6 +3,8 @@
 	<p>
 		<%= form.label :email %>
 		<%= form.text_field :email, :type => "email", :class => 'text-input small-input' %>
+		<input name="username" id="username" type="text" required autofocus /><br/>
+		
 	</p>
 	<p>
 		<%= form.label :password, form.object.new_record? ? nil : "Change password" %>

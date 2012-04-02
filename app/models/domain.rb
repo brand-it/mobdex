@@ -54,6 +54,11 @@ class Domain < ActiveRecord::Base
     return domains, noresults
   end
   
+  def check_favicon_status
+    # fetch(self.favicon_url, 1)
+    
+  end
+  
   # this is used for the 
   def fetch_and_save
     html_data = self.get_data
@@ -62,6 +67,7 @@ class Domain < ActiveRecord::Base
     end
     return html_data
   end
+  
   
   protected
   # Get data will pull all the information off the server
@@ -94,11 +100,14 @@ class Domain < ActiveRecord::Base
     return response
   end
   
+  
   def fetch(url_string = nil, limit = 10)
+    puts url_string
     # You should choose better exception.
     # raise ArgumentError, 'HTTP redirect too deep stoped at ' + url if limit == 0
     url_string = self.url if url_string.nil?
     uri = URI.parse(url_string + "/")
+    
     # Shortcut
     http = Net::HTTP.new(uri.host, uri.port)
     
@@ -107,6 +116,7 @@ class Domain < ActiveRecord::Base
     else
       http.use_ssl = false
     end
+    
     begin
       response = http.request(Net::HTTP::Get.new(uri.request_uri))
     rescue
@@ -168,7 +178,8 @@ class Domain < ActiveRecord::Base
       uri_split = url.split("//")[1].split(".")
     end
     
-    # Step two and three check for the .com and www at the begging. The count is to make sure that is it missing something and not just taking the place of a sub domain.
+    # Step two and three check for the .com and www at the begging. 
+    # The count is to make sure that is it missing something and not just taking the place of a sub domain.
     if uri_split.count <= 2
       two = url.slice(/(com|gov|org|net|mobi)/)
       three = url.slice(/(www)/)
@@ -180,15 +191,10 @@ class Domain < ActiveRecord::Base
         uri_split << "com"
       end
     end
-    
-    
     path_seperator = uri_split[uri_split.length - 1].split(/\//)
     if path_seperator && path_seperator.length <= 1
       uri_split[uri_split.length - 1] = path_seperator
     end
-    
-    
-   
     string = uri_split.map{ |split| split }.join(".").to_s
     # I can't figure this part out but it sucks
     path_thing = string.split(/\//) 
