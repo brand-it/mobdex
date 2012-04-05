@@ -4,7 +4,8 @@
 	<title>MobDex</title>
 	<%= stylesheet_link_tag "front/application" %>
 	
-	<%= javascript_include_tag "application" %>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<%= csrf_meta_tags %>
 </head>
 <body style="height:100%">
@@ -20,5 +21,6 @@
 		<%= yield %>
 	</div>
 	<%= render "layouts/google_analytics"%>
+	<%= javascript_include_tag "application" %>
 </body>
 </html>
