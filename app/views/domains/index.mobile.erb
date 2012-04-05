@@ -1,18 +1,20 @@
-<div style="padding: 10px;">
-	<%= render "search" %>
-</div>
-<div class="domains">
+<%= render "search" %>
+<section class="row content">
 	<% for domain in @domains %>
-		<div class="domain">
-			<div id="favicon"><%= image_tag domain.url + "/favicon.ico", :class => :favicon %></div>
-			<div id="domainInformation">
-				<div id="title">
-					<%= domain.title %>
-				</div>
-				<div id="description">
-					<%= domain.description %>
-				</div>
-			</div>
-		</div>
+	    	<div class="span4 offset4 well">
+	    		<%= image_tag domain.favicon_url, :class => :favicon %>
+	    		<h2><%= link_to truncate(domain.title, :length => 40, :separator => ' '), domain_path(domain) %></h2>
+				<p class="url"><%= domain.url %></p>
+	    		<p>
+					<i><%= truncate(domain.description, :length => 150, :separator => ' ') %></i>
+	    		</p>
+				<% if domain.tags.length > 0 %>
+	    		<span class="tags"><i class="icon-tag"></i> <%= domain.tags.limit(5).map{|tag| truncate(tag.name, :length => 12, :separator => ' ')}.join(", ") %></span>
+				<% end %>
+	    	</div>
 	<% end %>
-</div>
+<!-- > 	<div class="span4 offset4 pagination">
+> 		<%#= paginate @domains %>
+> 	</div> -->
+</section>
+

@@ -55,8 +55,7 @@ class Domain < ActiveRecord::Base
   end
   
   def check_favicon_status
-    # fetch(self.favicon_url, 1)
-    
+    fetch(self.favicon_url, 1)
   end
   
   # this is used for the 
