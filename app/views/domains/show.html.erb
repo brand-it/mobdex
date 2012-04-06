@@ -1,6 +1,4 @@
 <div id="information">
-	<%= @domain.check_favicon_status %>
-	<%= @domain.favicon_url %>
 	<h1><%= @domain.title %></h1>
 	<p><%= @domain.description %></p>
 	<p>Tags: <%= @domain.tags.map{|tag| tag.name}.join(", ") %></p>

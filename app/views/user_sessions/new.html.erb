@@ -1,4 +1,3 @@
-
 <div id="login-content">
 	<%= form_for @user_session, :url => user_sessions_path do |f| %>
 		<% if flash? %>
@@ -27,5 +26,5 @@
 			<%= f.submit "Login", :class => :button %>
 		</p>
 	<% end %>
-	
+	<%= set_focus("username") %>
 </div> <!-- End #login-content -->

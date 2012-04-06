@@ -83,4 +83,9 @@ module ApplicationHelper
       textilized.to_html.html_safe
     end
   end
+  
+  
+  def set_focus(id)    
+    return content_tag(:script, "$('##{id}').focus();", :type => "text/javascript")
+  end
 end
