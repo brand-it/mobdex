@@ -7,7 +7,11 @@
 
 <section class="row">
 	<div class="results shape  offset4">
+		<% if flash? %>
+			<%= flash_notifier %>
+		<% else %>
+			<%= content_tag(:p, "Welcome to pew2 lets help searching mobile websites", :class => "success-message") %>
+		<% end %>
 		
-		<%= flash_notifier %>
 	</div>
 </section>
