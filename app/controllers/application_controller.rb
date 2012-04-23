@@ -157,7 +157,7 @@ class ApplicationController < ActionController::Base
       flash[:error] = options[:flash_error] || "You do not have access to this page. Please Login to a user that does."
     end
     unless options[:ignore_redirect] == true
-      redirect_to login_path
+      redirect_to new_beta_signup_path
     end
   end
   

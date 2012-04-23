@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_filter :admin_authorized
+  
   def create
     @feedback = Feedback.find(params[:feedback_id])
     

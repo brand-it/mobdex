@@ -1,5 +1,8 @@
 class BetaSignupsController < ApplicationController
-  layout "admin", :only => :index 
+  layout "admin", :only => :index
+  
+  before_filter :admin_authorized, :only => [:index, :create]
+  
   def index
     @beta_signups = BetaSignup.order(:created_at).page params[:page]
   end

@@ -1,5 +1,5 @@
 class DomainsController < ApplicationController
-  # before_filter :admin_authorized, :except => [:index, :show, :get_data]
+  before_filter :basic_authorized
   # layout "admin", :only => [:edit, :create]
   
   def show
