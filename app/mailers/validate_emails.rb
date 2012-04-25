@@ -5,8 +5,7 @@ class ValidateEmails < ActionMailer::Base
   
   def send_validation(user)
     @user = user
-    # attachments.inline['optlet_header_email.png'] = File.read("#{Rails.root}/public/email_images/optlet_header_email.png")
-    mail(:to => user.email, :subject => "Mobdex Email Validation")
+    mail(:to => user.email, :subject => "Super Heroes in Training Email Validation")
   end
   
   # Documentation Don't use this code but for referance it is good to read
